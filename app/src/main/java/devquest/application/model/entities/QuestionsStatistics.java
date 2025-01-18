@@ -26,5 +26,4 @@ public class QuestionsStatistics {
 
   @OneToOne
   private AppUser userId;
-
 }
