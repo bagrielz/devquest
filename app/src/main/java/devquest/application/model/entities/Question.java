@@ -38,7 +38,7 @@ public class Question {
   @Column(name = "created_at")
   private Date createdAt;
 
-  @OneToMany(mappedBy = "questionId")
+  @OneToMany(mappedBy = "question")
   private Set<Option> options;
 
   @ManyToMany(mappedBy = "questions")
