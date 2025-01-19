@@ -1,1 +1,11 @@
-spring.application.name=application
+spring:
+  application:
+    name: application
+  datasource:
+    url: jdbc:postgresql://localhost:5432/devquest
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+  ai:
+    openai:
+      api-key: ${SPRING_AI_OPENAI_API_KEY}
