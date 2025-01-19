@@ -25,5 +25,5 @@ public class QuestionsStatistics {
   private Integer exercisesCompleted;
 
   @OneToOne
-  private AppUser userId;
+  private AppUser user;
 }

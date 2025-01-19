@@ -48,8 +48,8 @@ public class AppUser {
   @Column(name = "updated_at")
   private Date updatedAt;
 
-  @OneToOne(mappedBy = "userId", cascade = CascadeType.ALL)
-  private QuestionsStatistics questionsStatisticsId;
+  @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+  private QuestionsStatistics questionsStatistics;
 
   @ManyToMany
   @JoinTable(name = "user_exercise",

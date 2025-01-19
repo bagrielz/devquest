@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/exercises")
+@RequestMapping("api/exercicios")
 public class ExerciseRestController {
 
   private ExerciseServiceImpl service;
