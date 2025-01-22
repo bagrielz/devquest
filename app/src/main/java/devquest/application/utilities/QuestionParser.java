@@ -33,4 +33,8 @@ public class QuestionParser {
     return new HashSet<>(Arrays.asList(optionsText.split("\\n")));
   }
 
+  public String[] getArrayWithOptionIndicatorAndText(String option) {
+    return option.split("\\)", 2);
+  }
+
 }
