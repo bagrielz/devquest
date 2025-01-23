@@ -1,5 +1,6 @@
 package devquest.application.model.services.impl;
 
+import devquest.application.dozermapper.DozerMapper;
 import devquest.application.enums.Technology;
 import devquest.application.model.dtos.response.QuestionResponseDTO;
 import devquest.application.model.entities.Option;
@@ -9,6 +10,7 @@ import devquest.application.model.repositories.QuestionRepository;
 import devquest.application.model.services.QuestionService;
 import devquest.application.utilities.QuestionParser;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -46,7 +48,9 @@ public class QuestionServiceImpl implements QuestionService {
     question = repository.save(question);
     Set<Option> options = saveOptionsInDatabaseAndReturnAnOptionSet(questionString, question);
     question.setOptions(options);
-    return null;
+    QuestionResponseDTO questionResponseDTO = DozerMapper.parseObject(question, QuestionResponseDTO.class);
+
+    return new ResponseEntity<>(questionResponseDTO, HttpStatus.CREATED);
   }
 
   private String formatprompt(Technology technology) {
