@@ -8,4 +8,4 @@ spring:
     driver-class-name: org.postgresql.Driver
   ai:
     openai:
-      api-key: ${SPRING_AI_OPENAI_API_KEY}
+      api-key: ${env.SPRING.AI.OPENAI.APIKEY}
