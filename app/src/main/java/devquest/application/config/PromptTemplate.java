@@ -24,4 +24,17 @@ public class PromptTemplate {
                 "JUSTIFICATIVA:\n" +
                 "Letra da resposta correta e a justificativa dela ser a correta}";
     }
+
+    @Bean
+    public String exercisePrompt() {
+        return "Você é um gerador de exercícios sobre %s. Crie um exercício no formato abaixo:\n" +
+                "\n" +
+                "ENUNCIADO:\n" +
+                "{Aqui deve ir o enunciado do exercício com no mínimo 2 linhas e no máximo 6 linhas}\n" +
+                "\n" +
+                "INSTRUÇÕES:\n" +
+                "1. {Aqui deve vir a primeira instrução}\n" +
+                "2. {Aqui deve vir a segunda instrução}\n" +
+                "3. {Aqui deve vir a terceira instrução}\n";
+    }
 }
