@@ -3,6 +3,7 @@ CREATE TABLE exercise (
     content TEXT,
     created_at TIMESTAMP WITHOUT TIME ZONE,
     technology VARCHAR(255),
+    difficulty VARCHAR(255),
 
     CONSTRAINT exercise_pkey PRIMARY KEY (id),
     CONSTRAINT exercise_technology_check CHECK (
@@ -51,5 +52,8 @@ CREATE TABLE exercise (
             'SHOPIFY', 'REST', 'SOA', 'OAUTH2', 'OPENID_CONNECT',
             'API_GATEWAY', 'SWAGGER'
         )
+    ),
+    CONSTRAINT exercise_difficulty_check CHECK (
+        difficulty IN ('BASICO', 'INTERMEDIARIO', 'AVANCADO')
     )
 );

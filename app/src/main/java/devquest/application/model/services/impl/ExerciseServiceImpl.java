@@ -1,5 +1,6 @@
 package devquest.application.model.services.impl;
 
+import devquest.application.enums.Difficulty;
 import devquest.application.enums.Technology;
 import devquest.application.model.dtos.response.ExerciseResponseDTO;
 import devquest.application.model.repositories.ExerciseRepository;
@@ -17,7 +18,7 @@ public class ExerciseServiceImpl implements ExerciseService {
   }
 
   @Override
-  public ResponseEntity<ExerciseResponseDTO> generateExercise(Technology technology) {
+  public ResponseEntity<ExerciseResponseDTO> generateExercise(Technology technology, Difficulty difficulty) {
     return null;
   }
 

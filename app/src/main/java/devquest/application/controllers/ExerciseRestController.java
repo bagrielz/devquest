@@ -1,5 +1,6 @@
 package devquest.application.controllers;
 
+import devquest.application.enums.Difficulty;
 import devquest.application.enums.Technology;
 import devquest.application.model.dtos.response.ExerciseResponseDTO;
 import devquest.application.model.services.impl.ExerciseServiceImpl;
@@ -21,9 +22,10 @@ public class ExerciseRestController {
 
   @GetMapping("/gerar")
   public ResponseEntity<ExerciseResponseDTO> generateExercise(
-          @RequestParam(name = "Tecnologia") Technology technology
+          @RequestParam(name = "Tecnologia") Technology technology,
+          @RequestParam(name = "Dificuldade") Difficulty difficulty
           ) {
-    return service.generateExercise(technology);
+    return service.generateExercise(technology, difficulty);
   }
 
 }

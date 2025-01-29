@@ -1,5 +1,6 @@
 package devquest.application.model.dtos.response;
 
+import devquest.application.enums.Difficulty;
 import devquest.application.enums.Technology;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,6 +17,7 @@ public class ExerciseResponseDTO {
 
   private Long id;
   private Technology technology;
+  private Difficulty difficulty;
   private String content;
   private Set<ExerciseInstructionResponseDTO> instructions;
 
