@@ -1,14 +1,14 @@
 package devquest.application.logics;
 
 import devquest.application.dozermapper.DozerMapper;
+import devquest.application.enums.Difficulty;
 import devquest.application.enums.Technology;
 import devquest.application.model.dtos.response.QuestionResponseDTO;
-import devquest.application.model.entities.Option;
+import devquest.application.model.entities.QuestionOption;
 import devquest.application.model.entities.Question;
-import devquest.application.model.repositories.OptionRepository;
+import devquest.application.model.repositories.QuestionOptionRepository;
 import devquest.application.model.repositories.QuestionRepository;
-import devquest.application.utilities.QuestionParser;
-import org.springframework.ai.chat.client.ChatClient;
+import devquest.application.utilities.StringParser;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -19,66 +19,62 @@ import java.util.Set;
 public class LogicGenerateQuestion {
 
   private String prompt;
-  private ChatClient chatClient;
-  private QuestionParser questionParser;
+  private StringParser stringParser;
   private QuestionRepository questionRepository;
-  private OptionRepository optionRepository;
+  private QuestionOptionRepository questionOptionRepository;
 
   public LogicGenerateQuestion(String prompt,
-                               ChatClient.Builder chatClientBuilder,
-                               QuestionParser questionParser,
+                               StringParser stringParser,
                                QuestionRepository questionRepository,
-                               OptionRepository optionRepository) {
+                               QuestionOptionRepository questionOptionRepository) {
     this.prompt = prompt;
-    this.chatClient = chatClientBuilder.build();
-    this.questionParser = questionParser;
+    this.stringParser = stringParser;
     this.questionRepository = questionRepository;
-    this.optionRepository = optionRepository;
+    this.questionOptionRepository = questionOptionRepository;
   }
 
-  public String formatprompt(Technology technology) {
+  public String cloneAndFormatPrompt(Technology technology, Difficulty difficulty) {
     String promptCloned = prompt;
-    return String.format(promptCloned, technology.getTechnology());
+    return String.format(promptCloned, technology, difficulty);
   }
 
-  public String callOpenaiAndReturnResponse(String formattedPrompt) {
-    return chatClient
-            .prompt()
-            .user(formattedPrompt)
-            .call()
-            .content();
-  }
-
-  public Question createQuestionObjectAndSaveInDatabase(String questionString, Technology technology) {
+  public Question createAndSaveQuestion(String questionString, Technology technology, Difficulty difficulty) {
     Question question = Question.builder()
             .technology(technology)
-            .text(questionParser.getText(questionString))
-            .correctAnswer(questionParser.getCorrectAnswer(questionString))
-            .justification(questionParser.getJustification(questionString))
+            .difficulty(difficulty)
+            .text(stringParser.getContentBetweenFlags(
+                    questionString, "ENUNCIADO:", "ALTERNATIVAS:"))
+            .correctAnswer(stringParser.getContentBetweenFlags(
+                    questionString, "RESPOSTA CORRETA:", "JUSTIFICATIVA:"))
+            .justification(stringParser.getContentBetweenFlags(
+                    questionString, "JUSTIFICATIVA:", null))
             .createdAt(new Date())
             .build();
 
     return questionRepository.save(question);
   }
 
-  public Set<Option> saveOptionsInDatabaseAndReturnAnOptionSet(String questionString, Question question) {
-    Set<String> optionsString = questionParser.getOptions(questionString);
-    Set<Option> options = new HashSet<>();
+  public Set<QuestionOption> saveOptionsInDatabase(String questionString, Question question) {
+    Set<String> optionsString = stringParser.getEnumerationBetweenFlags(
+            questionString, "ALTERNATIVAS:", "RESPOSTA CORRETA:");
+    Set<QuestionOption> questionOptions = new HashSet<>();
     optionsString.stream().forEach(o -> {
-      String[] parts = questionParser.getArrayWithOptionIndicatorAndText(o);
-      Option option = createOptionObject(parts, question);
-      options.add(optionRepository.save(option));
+      String[] parts = stringParser.getArrayWithEnumeratorIndicatorAndText(o, "\\)");
+      QuestionOption questionOption = createAndSaveOption(parts, question);
+      questionOptions.add(questionOption);
     });
 
-    return options;
+    return questionOptions;
   }
 
-  private Option createOptionObject(String[] parts, Question question) {
-    return Option.builder()
+  private QuestionOption createAndSaveOption(String[] parts, Question question) {
+    QuestionOption questionOption = QuestionOption.builder()
             .optionIndicator(parts[0])
             .optionText(parts[1])
             .question(question)
             .build();
+
+    return questionOptionRepository.save(questionOption);
   }
 
   public QuestionResponseDTO parseQuestionToQuestionResponseDTO(Question question) {

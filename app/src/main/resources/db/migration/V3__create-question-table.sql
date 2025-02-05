@@ -4,8 +4,11 @@ CREATE TABLE question (
     created_at TIMESTAMP(6) WITHOUT TIME ZONE,
     justification TEXT,
     technology CHARACTER VARYING(255),
+    difficulty VARCHAR(255),
     text TEXT,
 
+    CONSTRAINT question_difficulty_check CHECK (
+        difficulty IN ('BASICO', 'INTERMEDIARIO', 'AVANCADO')),
     CONSTRAINT question_technology_check
         CHECK (technology::TEXT = ANY (ARRAY[
             'JAVA', 'JAVASCRIPT', 'PYTHON', 'C_SHARP', 'PHP', 'C_PLUS_PLUS', 'RUBY',
