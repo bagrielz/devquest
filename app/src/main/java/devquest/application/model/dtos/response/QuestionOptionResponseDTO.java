@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class OptionResponseDTO {
+public class QuestionOptionResponseDTO {
 
   private Long id;
   private String optionIndicator;

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 public class PromptTemplate {
     @Bean
     public String prompt() {
-        return "Você é um gerador de questões sobre %s. Crie uma questão no formato abaixo:\n" +
+        return "Você é um gerador de questões sobre %s para o nível %s. Crie uma questão no formato abaixo:\n" +
                 "\n" +
                 "ENUNCIADO:\n" +
                 "{Aqui deve ir o enunciado da questão com no mínimo 2 linhas e no máximo 5 linhas}\n" +

@@ -1,5 +1,6 @@
 package devquest.application.controllers;
 
+import devquest.application.enums.Difficulty;
 import devquest.application.enums.Technology;
 import devquest.application.model.dtos.response.QuestionResponseDTO;
 import devquest.application.model.services.impl.QuestionServiceImpl;
@@ -21,9 +22,10 @@ public class QuestionRestController {
 
   @GetMapping("/gerar")
   public ResponseEntity<QuestionResponseDTO> generateQuestion(
-          @RequestParam(name = "tecnologia") Technology technology
+          @RequestParam(name = "tecnologia") Technology technology,
+          @RequestParam(name = "dificuldade") Difficulty difficulty
           ) {
-    return service.generateQuestion(technology);
+    return service.generateQuestion(technology, difficulty);
   }
 
 }

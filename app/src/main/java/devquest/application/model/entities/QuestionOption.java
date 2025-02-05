@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Option {
+public class QuestionOption {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -13,7 +13,7 @@ public class StringParser {
     int start = text.indexOf(flag1) + flag1.length();
     int end;
 
-    if (!flag2.isBlank()) {
+    if (flag2 != null) {
       end = text.indexOf(flag2);
       return text.substring(start, end).trim();
     }

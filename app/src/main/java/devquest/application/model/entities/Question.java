@@ -1,5 +1,6 @@
 package devquest.application.model.entities;
 
+import devquest.application.enums.Difficulty;
 import devquest.application.enums.Technology;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,10 @@ public class Question {
   @Column(name = "technology")
   private Technology technology;
 
+  @Enumerated(EnumType.STRING)
+  @Column(name = "difficulty")
+  private Difficulty difficulty;
+
   @Column(name = "text", columnDefinition = "TEXT")
   private String text;
 
@@ -39,7 +44,7 @@ public class Question {
   private Date createdAt;
 
   @OneToMany(mappedBy = "question")
-  private Set<Option> options;
+  private Set<QuestionOption> options;
 
   @ManyToMany(mappedBy = "questions")
   private Set<AppUser> users;
