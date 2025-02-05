@@ -1,9 +1,6 @@
 package devquest.application.model.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,13 +14,14 @@ import lombok.NoArgsConstructor;
 public class ExerciseInstruction {
 
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column
   private Long id;
 
-  @Column(length = 1)
+  @Column(name = "indicator", length = 1)
   private String indicator;
 
-  @Column(columnDefinition = "TEXT")
+  @Column(name = "text", columnDefinition = "TEXT")
   private String text;
 
   @ManyToOne

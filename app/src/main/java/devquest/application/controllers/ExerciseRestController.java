@@ -22,8 +22,8 @@ public class ExerciseRestController {
 
   @GetMapping("/gerar")
   public ResponseEntity<ExerciseResponseDTO> generateExercise(
-          @RequestParam(name = "Tecnologia") Technology technology,
-          @RequestParam(name = "Dificuldade") Difficulty difficulty
+          @RequestParam(name = "tecnologia") Technology technology,
+          @RequestParam(name = "dificuldade") Difficulty difficulty
           ) {
     return service.generateExercise(technology, difficulty);
   }
