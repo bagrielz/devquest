@@ -1,4 +1,4 @@
-package devquest.application.model.services.subservices;
+package devquest.application.model.services.subservices.question;
 
 import devquest.application.dozermapper.DozerMapper;
 import devquest.application.enums.Difficulty;

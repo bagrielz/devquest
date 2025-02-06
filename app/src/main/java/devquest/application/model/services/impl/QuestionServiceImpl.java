@@ -4,7 +4,7 @@ import devquest.application.enums.Difficulty;
 import devquest.application.enums.Technology;
 import devquest.application.model.dtos.response.QuestionResponseDTO;
 import devquest.application.model.services.QuestionService;
-import devquest.application.model.services.subservices.GenerateQuestionService;
+import devquest.application.model.services.subservices.question.GenerateQuestionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
