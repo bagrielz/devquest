@@ -3,7 +3,7 @@ package devquest.application.model.services.impl;
 import devquest.application.dozermapper.DozerMapper;
 import devquest.application.enums.Difficulty;
 import devquest.application.enums.Technology;
-import devquest.application.logics.AI.OpenaiCaller;
+import devquest.application.utilities.OpenaiCaller;
 import devquest.application.logics.LogicGenerateExercise;
 import devquest.application.model.dtos.response.ExerciseResponseDTO;
 import devquest.application.model.entities.Exercise;

@@ -25,6 +25,7 @@ public class QuestionRestController {
           @RequestParam(name = "tecnologia") Technology technology,
           @RequestParam(name = "dificuldade") Difficulty difficulty
           ) {
+
     return service.generateQuestion(technology, difficulty);
   }
 

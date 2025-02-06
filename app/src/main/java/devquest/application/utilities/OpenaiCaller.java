@@ -1,4 +1,4 @@
-package devquest.application.logics.AI;
+package devquest.application.utilities;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Component;
