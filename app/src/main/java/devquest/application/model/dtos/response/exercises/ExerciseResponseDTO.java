@@ -1,4 +1,4 @@
-package devquest.application.model.dtos.response;
+package devquest.application.model.dtos.response.exercises;
 
 import devquest.application.enums.Difficulty;
 import devquest.application.enums.Technology;

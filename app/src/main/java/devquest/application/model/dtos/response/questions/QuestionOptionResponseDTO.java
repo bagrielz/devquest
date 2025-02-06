@@ -1,4 +1,4 @@
-package devquest.application.model.dtos.response;
+package devquest.application.model.dtos.response.questions;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

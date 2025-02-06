@@ -2,7 +2,7 @@ package devquest.application.controllers;
 
 import devquest.application.enums.Difficulty;
 import devquest.application.enums.Technology;
-import devquest.application.model.dtos.response.ExerciseResponseDTO;
+import devquest.application.model.dtos.response.exercises.ExerciseResponseDTO;
 import devquest.application.model.services.impl.ExerciseServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
