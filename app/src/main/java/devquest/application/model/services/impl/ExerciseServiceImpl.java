@@ -2,7 +2,7 @@ package devquest.application.model.services.impl;
 
 import devquest.application.enums.Difficulty;
 import devquest.application.enums.Technology;
-import devquest.application.model.dtos.response.ExerciseResponseDTO;
+import devquest.application.model.dtos.response.exercises.ExerciseResponseDTO;
 import devquest.application.model.services.ExerciseService;
 import devquest.application.model.services.subservices.exercise.GenerateExerciseService;
 import org.springframework.http.ResponseEntity;

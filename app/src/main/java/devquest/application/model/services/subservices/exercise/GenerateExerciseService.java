@@ -3,7 +3,7 @@ package devquest.application.model.services.subservices.exercise;
 import devquest.application.dozermapper.DozerMapper;
 import devquest.application.enums.Difficulty;
 import devquest.application.enums.Technology;
-import devquest.application.model.dtos.response.ExerciseResponseDTO;
+import devquest.application.model.dtos.response.exercises.ExerciseResponseDTO;
 import devquest.application.model.entities.Exercise;
 import devquest.application.model.entities.ExerciseInstruction;
 import devquest.application.model.repositories.ExerciseInstructionRepository;

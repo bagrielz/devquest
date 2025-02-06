@@ -4,7 +4,7 @@ import devquest.application.dozermapper.DozerMapper;
 import devquest.application.enums.Difficulty;
 import devquest.application.enums.Technology;
 import devquest.application.utilities.OpenaiCaller;
-import devquest.application.model.dtos.response.QuestionResponseDTO;
+import devquest.application.model.dtos.response.questions.QuestionResponseDTO;
 import devquest.application.model.entities.Question;
 import devquest.application.model.entities.QuestionOption;
 import devquest.application.model.repositories.QuestionOptionRepository;
