@@ -1,5 +1,6 @@
 package devquest.application.utilities;
 
+import devquest.application.config.TestData;
 import devquest.application.enums.Difficulty;
 import devquest.application.enums.Technology;
 import org.junit.jupiter.api.BeforeEach;
@@ -47,35 +48,8 @@ class PromptFormatterTest {
   }
 
   public void startEntities() {
-    questionPrompt =
-            "Você é um gerador de questões sobre %s para o nível %s. Crie uma questão no formato abaixo:\n" +
-                    "\n" +
-                    "ENUNCIADO:\n" +
-                    "{Aqui deve ir o enunciado da questão com no mínimo 2 linhas e no máximo 5 linhas}\n" +
-                    "\n" +
-                    "ALTERNATIVAS:\n" +
-                    "A) {Texto da alternativa A}\n" +
-                    "B) {Texto da alternativa B}\n" +
-                    "C) {Texto da alternativa C}\n" +
-                    "D) {Texto da alternativa D}\n" +
-                    "\n" +
-                    "RESPOSTA CORRETA:\n" +
-                    "{Letra da resposta correta (exemplo: A, B, C, D)}\n" +
-                    "\n" +
-                    "JUSTIFICATIVA:\n" +
-                    "Letra da resposta correta e a justificativa dela ser a correta}";
-
-    exercisePrompt =
-            "Você é um gerador de exercícios sobre %s para o nível %s. Crie um exercício no formato abaixo:\n" +
-                    "\n" +
-                    "ENUNCIADO:\n" +
-                    "{Aqui deve ir o enunciado do exercício com no mínimo 2 linhas e no máximo 6 linhas}\n" +
-                    "\n" +
-                    "INSTRUÇÕES:\n" +
-                    "1. {Aqui deve vir a primeira instrução}\n" +
-                    "2. {Aqui deve vir a segunda instrução}\n" +
-                    "3. {Aqui deve vir a terceira instrução}";
-
+    questionPrompt = TestData.questionPrompt;
+    exercisePrompt = TestData.exercisePrompt;
     promptFormatter = new PromptFormatter(questionPrompt, exercisePrompt);
   }
 
