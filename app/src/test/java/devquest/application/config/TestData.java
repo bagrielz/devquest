@@ -31,4 +31,8 @@ public class TestData {
                   "2. {Aqui deve vir a segunda instrução}\n" +
                   "3. {Aqui deve vir a terceira instrução}";
 
+  public static final String enumerator =
+          "1. {Aqui deve vir a primeira instrução}\n" +
+          "2. {Aqui deve vir a segunda instrução}\n" +
+          "3. {Aqui deve vir a terceira instrução}";
 }

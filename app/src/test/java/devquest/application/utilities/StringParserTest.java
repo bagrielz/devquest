@@ -9,6 +9,8 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -17,7 +19,8 @@ class StringParserTest {
 
   @InjectMocks
   private StringParser stringParser;
-  private String text;
+  private String exercisePrompt;
+  private String questionPrompt;
 
   @BeforeEach
   void setUp() {
@@ -27,7 +30,7 @@ class StringParserTest {
 
   @Test
   void getContentBetweenFlagsWith2Flags() {
-    String result = stringParser.getContentBetweenFlags(text, "ENUNCIADO:", "INSTRUÇÕES:");
+    String result = stringParser.getContentBetweenFlags(exercisePrompt, "ENUNCIADO:", "INSTRUÇÕES:");
 
     assertTrue(result.equals(
             "{Aqui deve ir o enunciado do exercício com no mínimo 2 linhas e no máximo 6 linhas}"));
@@ -35,7 +38,7 @@ class StringParserTest {
 
   @Test
   void getContentBetweenFlagsWith1Flag() {
-    String result = stringParser.getContentBetweenFlags(text, "INSTRUÇÕES:", null);
+    String result = stringParser.getContentBetweenFlags(exercisePrompt, "INSTRUÇÕES:", null);
 
     assertTrue(result.equals(
             "1. {Aqui deve vir a primeira instrução}\n" +
@@ -46,7 +49,26 @@ class StringParserTest {
   }
 
   @Test
-  void getEnumerationBetweenFlags() {
+  void getEnumerationBetweenFlagsWith2Flags() {
+    String result = stringParser.getEnumerationBetweenFlags(
+            questionPrompt, "ALTERNATIVAS:", "RESPOSTA CORRETA:")
+            .toString();
+
+    assertTrue(result.contains("A) {Texto da alternativa A}"));
+    assertTrue(result.contains("B) {Texto da alternativa B}"));
+    assertTrue(result.contains("C) {Texto da alternativa C}"));
+    assertTrue(result.contains("D) {Texto da alternativa D}"));
+  }
+
+  @Test
+  void getEnumerationBetweenFlagsWith1Flag() {
+    String result = stringParser.getEnumerationBetweenFlags(
+            exercisePrompt, "INSTRUÇÕES:", null)
+            .toString();
+
+    assertTrue(result.contains("1. {Aqui deve vir a primeira instrução}"));
+    assertTrue(result.contains("2. {Aqui deve vir a segunda instrução}"));
+    assertTrue(result.contains("3. {Aqui deve vir a terceira instrução}"));
   }
 
   @Test
@@ -54,7 +76,8 @@ class StringParserTest {
   }
 
   public void startEntities() {
-    this.text = TestData.exercisePrompt;
+    this.exercisePrompt = TestData.exercisePrompt;
+    this.questionPrompt = TestData.questionPrompt;
   }
 
 }
