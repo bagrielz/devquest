@@ -51,9 +51,8 @@ class StringParserTest {
 
   @Test
   void getEnumerationBetweenFlagsWith2Flags() {
-    String result = stringParser.getEnumerationBetweenFlags(
-            questionPrompt, "ALTERNATIVAS:", "RESPOSTA CORRETA:")
-            .toString();
+    Set<String> result = stringParser.getEnumerationBetweenFlags(
+            questionPrompt, "ALTERNATIVAS:", "RESPOSTA CORRETA:");
 
     assertTrue(result.contains("A) {Texto da alternativa A}"));
     assertTrue(result.contains("B) {Texto da alternativa B}"));
@@ -63,9 +62,8 @@ class StringParserTest {
 
   @Test
   void getEnumerationBetweenFlagsWith1Flag() {
-    String result = stringParser.getEnumerationBetweenFlags(
-            exercisePrompt, "INSTRUÇÕES:", null)
-            .toString();
+    Set<String> result = stringParser.getEnumerationBetweenFlags(
+            exercisePrompt, "INSTRUÇÕES:", null);
 
     assertTrue(result.contains("1. {Aqui deve vir a primeira instrução}"));
     assertTrue(result.contains("2. {Aqui deve vir a segunda instrução}"));
