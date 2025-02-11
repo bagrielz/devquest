@@ -21,6 +21,7 @@ class StringParserTest {
   private StringParser stringParser;
   private String exercisePrompt;
   private String questionPrompt;
+  private String enumeration;
 
   @BeforeEach
   void setUp() {
@@ -73,11 +74,16 @@ class StringParserTest {
 
   @Test
   void getArrayWithEnumeratorIndicatorAndText() {
+    String[] result = stringParser.getArrayWithEnumeratorIndicatorAndText(enumeration, "\\.");
+
+    assertTrue(result[0].equals("1"));
+    assertTrue(result[1].contains("{Aqui deve vir a primeira instrução}"));
   }
 
   public void startEntities() {
     this.exercisePrompt = TestData.exercisePrompt;
     this.questionPrompt = TestData.questionPrompt;
+    this.enumeration = TestData.enumeration;
   }
 
 }
