@@ -1,4 +1,4 @@
-package devquest.application.model.repositories;
+package devquest.application.repositories;
 
 import devquest.application.model.entities.Exercise;
 import org.springframework.data.jpa.repository.JpaRepository;

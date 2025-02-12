@@ -1,7 +1,7 @@
-package devquest.application.model.services.impl;
+package devquest.application.services.impl;
 
-import devquest.application.model.repositories.UserRepository;
-import devquest.application.model.services.UserService;
+import devquest.application.repositories.UserRepository;
+import devquest.application.services.UserService;
 import org.springframework.stereotype.Service;
 
 @Service

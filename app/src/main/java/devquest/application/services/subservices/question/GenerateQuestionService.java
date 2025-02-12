@@ -1,4 +1,4 @@
-package devquest.application.model.services.subservices.question;
+package devquest.application.services.subservices.question;
 
 import devquest.application.dozermapper.DozerMapper;
 import devquest.application.enums.Difficulty;
@@ -7,8 +7,8 @@ import devquest.application.utilities.OpenaiCaller;
 import devquest.application.model.dtos.response.questions.QuestionResponseDTO;
 import devquest.application.model.entities.Question;
 import devquest.application.model.entities.QuestionOption;
-import devquest.application.model.repositories.QuestionOptionRepository;
-import devquest.application.model.repositories.QuestionRepository;
+import devquest.application.repositories.QuestionOptionRepository;
+import devquest.application.repositories.QuestionRepository;
 import devquest.application.utilities.PromptFormatter;
 import devquest.application.utilities.StringParser;
 import org.springframework.http.HttpStatus;

@@ -1,10 +1,10 @@
-package devquest.application.model.services.impl;
+package devquest.application.services.impl;
 
 import devquest.application.enums.Difficulty;
 import devquest.application.enums.Technology;
 import devquest.application.model.dtos.response.exercises.ExerciseResponseDTO;
-import devquest.application.model.services.ExerciseService;
-import devquest.application.model.services.subservices.exercise.GenerateExerciseService;
+import devquest.application.services.ExerciseService;
+import devquest.application.services.subservices.exercise.GenerateExerciseService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
