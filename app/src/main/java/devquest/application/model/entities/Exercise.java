@@ -40,7 +40,6 @@ public class Exercise {
   @OneToMany(mappedBy = "exercise")
   private Set<ExerciseInstruction> instructions;
 
-  @ManyToMany(mappedBy = "exercises")
-  private Set<AppUser> users;
+  // TODO essa tabela deve ter um relacionamento ManyToMany com a nova tabela User
 
 }
