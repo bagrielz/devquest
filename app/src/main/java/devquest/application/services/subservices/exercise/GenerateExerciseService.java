@@ -1,4 +1,4 @@
-package devquest.application.model.services.subservices.exercise;
+package devquest.application.services.subservices.exercise;
 
 import devquest.application.dozermapper.DozerMapper;
 import devquest.application.enums.Difficulty;
@@ -6,8 +6,8 @@ import devquest.application.enums.Technology;
 import devquest.application.model.dtos.response.exercises.ExerciseResponseDTO;
 import devquest.application.model.entities.Exercise;
 import devquest.application.model.entities.ExerciseInstruction;
-import devquest.application.model.repositories.ExerciseInstructionRepository;
-import devquest.application.model.repositories.ExerciseRepository;
+import devquest.application.repositories.ExerciseInstructionRepository;
+import devquest.application.repositories.ExerciseRepository;
 import devquest.application.utilities.OpenaiCaller;
 import devquest.application.utilities.PromptFormatter;
 import devquest.application.utilities.StringParser;

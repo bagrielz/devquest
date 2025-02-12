@@ -46,7 +46,6 @@ public class Question {
   @OneToMany(mappedBy = "question")
   private Set<QuestionOption> options;
 
-  @ManyToMany(mappedBy = "questions")
-  private Set<AppUser> users;
+  // TODO essa tabela deve ter um relacionamento OneToMany com a nova tabela UserQuestion
 
 }

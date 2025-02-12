@@ -1,10 +1,10 @@
-package devquest.application.model.services.impl;
+package devquest.application.services.impl;
 
 import devquest.application.enums.Difficulty;
 import devquest.application.enums.Technology;
 import devquest.application.model.dtos.response.questions.QuestionResponseDTO;
-import devquest.application.model.services.QuestionService;
-import devquest.application.model.services.subservices.question.GenerateQuestionService;
+import devquest.application.services.QuestionService;
+import devquest.application.services.subservices.question.GenerateQuestionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 

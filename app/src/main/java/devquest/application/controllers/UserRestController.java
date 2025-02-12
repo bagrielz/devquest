@@ -1,6 +1,6 @@
 package devquest.application.controllers;
 
-import devquest.application.model.services.impl.UserServiceImpl;
+import devquest.application.services.impl.UserServiceImpl;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

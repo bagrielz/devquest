@@ -24,6 +24,6 @@ public class QuestionsStatistics {
   @Column(name = "exercises_completed")
   private Integer exercisesCompleted;
 
-  @OneToOne
-  private AppUser user;
+  // TODO essa tabela deve ter um relacionamento OneToOne com a nova tabela User
+
 }

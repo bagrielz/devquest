@@ -9,14 +9,13 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.Date;
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
-public class AppUser {
+@Entity(name = "user_profile")
+public class UserProfile {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,9 +34,6 @@ public class AppUser {
   @Column(name = "birth_date")
   private LocalDate birthDate;
 
-  @Column(name = "email", length = 100, unique = true)
-  private String email;
-
   @Enumerated(EnumType.STRING)
   @Column(name = "gender")
   private Gender gender;
@@ -48,21 +44,8 @@ public class AppUser {
   @Column(name = "updated_at")
   private Date updatedAt;
 
-  @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-  private QuestionsStatistics questionsStatistics;
-
-  @ManyToMany
-  @JoinTable(name = "user_exercise",
-          joinColumns = @JoinColumn(name = "user_id"),
-          inverseJoinColumns = @JoinColumn(name = "exercise_id")
-  )
-  private Set<Exercise> exercises;
-
-  @ManyToMany
-  @JoinTable(name = "user_question",
-          joinColumns = @JoinColumn(name = "user_id"),
-          inverseJoinColumns = @JoinColumn(name = "question_id")
-  )
-  private Set<Question> questions;
+  // TODO a nova tabela User deve ter relacionamento OneToOne com QuestionStatistics
+  // TODO a nova tabela User deve ter relacionamento ManyToMany com Exercise
+  // TODO a nova tabela User deve ter relacionamento OneToMany com UserQuestion
 
 }

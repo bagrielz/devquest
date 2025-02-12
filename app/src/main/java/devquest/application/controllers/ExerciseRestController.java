@@ -3,7 +3,7 @@ package devquest.application.controllers;
 import devquest.application.enums.Difficulty;
 import devquest.application.enums.Technology;
 import devquest.application.model.dtos.response.exercises.ExerciseResponseDTO;
-import devquest.application.model.services.impl.ExerciseServiceImpl;
+import devquest.application.services.impl.ExerciseServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

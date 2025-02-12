@@ -1,4 +1,4 @@
-package devquest.application.model.services;
+package devquest.application.services;
 
 import devquest.application.enums.Difficulty;
 import devquest.application.enums.Technology;
