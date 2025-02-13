@@ -1,31 +1,33 @@
 package devquest.application.model.entities;
 
+import devquest.application.enums.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
-public class QuestionsStatistics {
+@Table(name = "user_question")
+public class UserQuestion {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column
   private Long id;
 
-  @Column(name = "correct_questions")
-  private Integer correctQuestions;
-
-  @Column(name = "exercises_completed")
-  private Integer exercisesCompleted;
-
-  @OneToOne
-  @JoinColumn(name = "user_id", unique = true)
+  @ManyToOne
+  @JoinColumn(name = "user_id")
   private User user;
+
+  @ManyToOne
+  @JoinColumn(name = "question_id")
+  private Question question;
+
+  @Column
+  @Enumerated(EnumType.STRING)
+  private Status status;
 
 }
