@@ -1,7 +1,7 @@
 security:
   jwt:
     token:
-      secret-key: ${env.JWT_TOKEN_SECRET_KEY}
+      secret-key: 123
       expire-length: 3600000
 spring:
   application:

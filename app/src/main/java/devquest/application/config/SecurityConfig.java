@@ -26,6 +26,10 @@ public class SecurityConfig {
   @Autowired
   private JwtTokenProvider tokenProvider;
 
+  public SecurityConfig(JwtTokenProvider tokenProvider) {
+    this.tokenProvider = tokenProvider;
+  }
+
   @Bean
   PasswordEncoder passwordEncoder() {
     Map<String, PasswordEncoder> encoders = new HashMap<>();
@@ -58,7 +62,6 @@ public class SecurityConfig {
               authorizeHttpRequests -> authorizeHttpRequests
                 .requestMatchers(
                   "/auth/signin",
-                  "/auth/refresh/**",
                   "/swagger-ui/**",
                   "/v3/api-docs/**"
                 ).permitAll()
