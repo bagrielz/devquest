@@ -3,6 +3,8 @@ security:
     token:
       secret-key: 123
       expire-length: 3600000
+cors:
+  originPatterns: http://localhost:8080
 spring:
   application:
     name: application
