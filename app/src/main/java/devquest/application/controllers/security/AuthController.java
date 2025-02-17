@@ -2,6 +2,7 @@ package devquest.application.controllers.security;
 
 import devquest.application.model.dtos.security.AccountCredentialsDTO;
 import devquest.application.services.security.AuthService;
+import devquest.application.services.security.CreateUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,9 +13,13 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
   private AuthService authService;
+  private CreateUserService createUserService;
 
-  public AuthController(AuthService authService) {
+  public AuthController(AuthService authService,
+                        CreateUserService createUserService) {
+
     this.authService = authService;
+    this.createUserService = createUserService;
   }
 
   @PostMapping("/signin")
@@ -40,6 +45,11 @@ public class AuthController {
     if (token == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
 
     return ResponseEntity.ok(token);
+  }
+
+  @PostMapping("/createUser")
+  public ResponseEntity<AccountCredentialsDTO> createUser(@RequestBody AccountCredentialsDTO userData) {
+    return createUserService.createUser(userData);
   }
 
   private boolean checkIfParamsIsNotNull(AccountCredentialsDTO data) {

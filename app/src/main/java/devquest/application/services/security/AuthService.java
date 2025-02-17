@@ -2,6 +2,7 @@ package devquest.application.services.security;
 
 import devquest.application.model.dtos.security.AccountCredentialsDTO;
 import devquest.application.model.dtos.security.TokenDTO;
+import devquest.application.model.entities.User;
 import devquest.application.repositories.UserRepository;
 import devquest.application.security.jwt.JwtTokenProvider;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +10,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class AuthService {
@@ -55,5 +62,7 @@ public class AuthService {
     tokenDTO = tokenProvider.refreshToken(refreshToken);
     return ResponseEntity.ok(tokenDTO);
   }
+
+
 
 }
