@@ -1,7 +1,6 @@
 package devquest.application.controllers.security;
 
 import devquest.application.exceptions.ExceptionResponse;
-import devquest.application.exceptions.RequiredObjectIsNullException;
 import devquest.application.model.dtos.security.AccountCredentialsDTO;
 import devquest.application.model.dtos.security.TokenDTO;
 import devquest.application.services.security.AuthService;
