@@ -1,7 +1,7 @@
 security:
   jwt:
     token:
-      secret-key: ${env.JWT_TOKEN_SECRET_KEY}
+      secret-key: ${JWT_TOKEN_SECRET_KEY}
       expire-length: 3600000
 cors:
   originPatterns: http://localhost:8080

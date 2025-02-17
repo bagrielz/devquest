@@ -29,7 +29,7 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
       }
 
-      return token;
+      return ResponseEntity.ok().body(token);
   }
 
   private boolean checkIfParamsIsNotNull(AccountCredentialsDTO data) {

@@ -1,6 +1,8 @@
 INSERT INTO users (full_name, user_name, password, enabled, account_non_expired, account_non_locked, credentials_non_expired)
   VALUES
   -- senha 123
-  ('Matheus Simeão dos Reis', 'msimeaor', '3505bb564abaa37555ed24bf4d8f70f0fd7686f3947df68a7a5f0d89f0c9e846',true, false, false, false),
+  ('Matheus Simeão dos Reis', 'msimeaor', '3216f4374bba18ab83ea200c6ae44c99a392fdf167547ded5fffbe191bc521e525f092344972cf2b'
+  ,true, true, true, true),
   -- senha 321
-  ('Juliana Santos Matos', 'jsantosm', '2969ac011c74e621708c00d3e5dc1e6c92eff3f61488d82b8f0f9dd12e15838c',true, false, false, false);
+  ('Juliana Santos Matos', 'jsantosm', '6ae3da20b6b7b8c6139963691b34a8daa42c397f5285533796c45a7ef3858b0de0bd610d8f767426'
+  ,true, true, true, true);

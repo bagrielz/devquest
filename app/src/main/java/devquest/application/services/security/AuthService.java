@@ -27,7 +27,7 @@ public class AuthService {
     this.repository = repository;
   }
 
-  public ResponseEntity signin(AccountCredentialsDTO data) {
+  public ResponseEntity<TokenDTO> signin(AccountCredentialsDTO data) {
     try {
       var username = data.getUsername();
       var password = data.getPassword();
