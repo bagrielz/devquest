@@ -1,15 +1,23 @@
 package devquest.application.controllers.security;
 
 import devquest.application.model.dtos.security.AccountCredentialsDTO;
+import devquest.application.model.dtos.security.TokenDTO;
 import devquest.application.services.security.AuthService;
 import devquest.application.services.security.CreateUserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
+@Tag(name = "Auth Controller", description = "Controller com endpoints para login e cadastro de usuários")
 public class AuthController {
 
   private AuthService authService;
@@ -22,6 +30,44 @@ public class AuthController {
     this.createUserService = createUserService;
   }
 
+  @Operation(summary = "Logar usuário",
+    description = "Logar usuário que já possui cadastro no aplicativo e retornar token JWT. " +
+            "O endpoint recebe username e senha",
+    tags = {"Segurança"},
+    responses = {
+      @ApiResponse(description = "Sucesso", responseCode = "200",
+        content = {
+          @Content(
+            mediaType = MediaType.APPLICATION_JSON_VALUE,
+            schema = @Schema(implementation = TokenDTO.class)
+          )
+        }
+      ),
+      @ApiResponse(description = "Credenciais nulas. A API retorna uma String com a mensagem " +
+              "'Invalid client request'",
+        responseCode = "403",
+        content = {
+          @Content(
+            mediaType = MediaType.APPLICATION_JSON_VALUE,
+            schema = @Schema(implementation = String.class)
+          )
+        }
+      ),
+      @ApiResponse(description = "Credenciais inválidas. Essa response ocorre quando email/senha" +
+              "estiverem inválidos. A API retorna uma String com a mensagem 'Invalid client request'",
+        responseCode = "403",
+        content = {
+          @Content(
+            mediaType = MediaType.APPLICATION_JSON_VALUE,
+            schema = @Schema(implementation = String.class)
+          )
+        }
+      ),
+      @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+      @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+      @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content)
+    }
+  )
   @PostMapping("/signin")
   public ResponseEntity<?> signin(@RequestBody AccountCredentialsDTO data) {
     if (checkIfParamsIsNotNull(data))
