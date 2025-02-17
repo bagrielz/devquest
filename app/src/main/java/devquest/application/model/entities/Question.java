@@ -46,6 +46,7 @@ public class Question {
   @OneToMany(mappedBy = "question")
   private Set<QuestionOption> options;
 
-  // TODO essa tabela deve ter um relacionamento OneToMany com a nova tabela UserQuestion
+  @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+  private Set<UserQuestion> userQuestion;
 
 }

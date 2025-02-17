@@ -44,8 +44,8 @@ public class UserProfile {
   @Column(name = "updated_at")
   private Date updatedAt;
 
-  // TODO a nova tabela User deve ter relacionamento OneToOne com QuestionStatistics
-  // TODO a nova tabela User deve ter relacionamento ManyToMany com Exercise
-  // TODO a nova tabela User deve ter relacionamento OneToMany com UserQuestion
+  @OneToOne
+  @JoinColumn(name = "user_id", unique = true)
+  private User user;
 
 }

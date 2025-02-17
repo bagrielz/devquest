@@ -1,7 +1,7 @@
 security:
   jwt:
     token:
-      secret-key: ${JWT_TOKEN_SECRETKEY}
+      secret-key: ${JWT_TOKEN_SECRET_KEY}
       expire-length: 3600000
 cors:
   originPatterns: http://localhost:8080
@@ -19,6 +19,3 @@ spring:
   ai:
     openai:
       api-key: ${env.SPRING.AI.OPENAI.APIKEY}
-logging:
-  level:
-    root: INFO

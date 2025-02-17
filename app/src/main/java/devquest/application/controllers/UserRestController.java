@@ -1,6 +1,6 @@
 package devquest.application.controllers;
 
-import devquest.application.services.impl.UserServiceImpl;
+import devquest.application.services.impl.UserProfileProfileServiceImpl;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/usuarios")
 public class UserRestController {
 
-  private UserServiceImpl service;
+  private UserProfileProfileServiceImpl service;
 
-  public UserRestController(UserServiceImpl userService) {
+  public UserRestController(UserProfileProfileServiceImpl userService) {
     this.service = userService;
   }
 
