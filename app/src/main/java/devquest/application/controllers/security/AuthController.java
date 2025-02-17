@@ -1,5 +1,7 @@
 package devquest.application.controllers.security;
 
+import devquest.application.exceptions.ExceptionResponse;
+import devquest.application.exceptions.RequiredObjectIsNullException;
 import devquest.application.model.dtos.security.AccountCredentialsDTO;
 import devquest.application.model.dtos.security.TokenDTO;
 import devquest.application.services.security.AuthService;
@@ -108,6 +110,31 @@ public class AuthController {
     return ResponseEntity.ok(token);
   }
 
+  @Operation(summary = "Criar um novo usuário",
+    description = "Criar um novo usuário comum no banco de dados. " +
+            "O endpoint recebe username, password e fullname",
+    tags = {"Segurança"},
+    responses = {
+      @ApiResponse(description = "Sucesso", responseCode = "201",
+        content = {
+          @Content(
+            mediaType = MediaType.APPLICATION_JSON_VALUE,
+            schema = @Schema(implementation = AccountCredentialsDTO.class)
+          )
+        }
+      ),
+      @ApiResponse(description = "AccountCredentialsDTO da requisição possui atributos nulos. A API retorna um " +
+              "ExceptionResponse com a description 'Invalid user data!'.",
+        responseCode = "400",
+          content = {
+            @Content(
+              mediaType = MediaType.APPLICATION_JSON_VALUE,
+              schema = @Schema(implementation = ExceptionResponse.class)
+            )
+          }
+      )
+    }
+  )
   @PostMapping("/createUser")
   public ResponseEntity<AccountCredentialsDTO> createUser(@RequestBody AccountCredentialsDTO userData) {
     return createUserService.createUser(userData);
