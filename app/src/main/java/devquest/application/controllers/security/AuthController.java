@@ -43,18 +43,8 @@ public class AuthController {
           )
         }
       ),
-      @ApiResponse(description = "Credenciais nulas. A API retorna uma String com a mensagem " +
+      @ApiResponse(description = "Credenciais nulas ou inválidas. A API retorna uma String com a mensagem " +
               "'Invalid client request'",
-        responseCode = "403",
-        content = {
-          @Content(
-            mediaType = MediaType.APPLICATION_JSON_VALUE,
-            schema = @Schema(implementation = String.class)
-          )
-        }
-      ),
-      @ApiResponse(description = "Credenciais inválidas. Essa response ocorre quando email/senha" +
-              "estiverem inválidos. A API retorna uma String com a mensagem 'Invalid client request'",
         responseCode = "403",
         content = {
           @Content(
@@ -81,6 +71,31 @@ public class AuthController {
       return ResponseEntity.ok().body(token);
   }
 
+  @Operation(summary = "Atualizar token do usuário",
+    description = "Atualizar o token do usuário que já está logado no aplicativo. Esse endpoint reccebe o " +
+            "username e o refreshToken.",
+    tags = {"Segurança"},
+    responses = {
+      @ApiResponse(description = "Sucesso", responseCode = "200",
+        content = {
+          @Content(
+            mediaType = MediaType.APPLICATION_JSON_VALUE,
+            schema = @Schema(implementation = TokenDTO.class)
+          )
+        }
+      ),
+      @ApiResponse(description = "Requisição passando username ou refreshToken nulos ou refreshToken inválido. " +
+              "A API retorna uma String com a mensagem 'Invalid client request!'.",
+        responseCode = "403",
+        content = {
+          @Content(
+            mediaType = MediaType.APPLICATION_JSON_VALUE,
+            schema = @Schema(implementation = String.class)
+          )
+        }
+      )
+    }
+  )
   @PutMapping("/refresh/{username}")
   public ResponseEntity<?> refreshToken(@PathVariable("username") String username,
                                         @RequestHeader("Authorization") String refreshToken) {
