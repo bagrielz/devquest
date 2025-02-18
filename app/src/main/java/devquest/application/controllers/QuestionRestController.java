@@ -54,7 +54,7 @@ public class QuestionRestController {
   }
 
   @PostMapping("/responder")
-  public ResponseEntity<?> answerQuestion(@RequestHeader("Authorization") String token,
+  public ResponseEntity<String> answerQuestion(@RequestHeader("Authorization") String token,
                                           @RequestBody AnswerQuestionRequestDTO answerQuestionRequestDTO) {
 
     return service.answerQuestion(token, answerQuestionRequestDTO);

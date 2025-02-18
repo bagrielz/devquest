@@ -1,8 +1,10 @@
 package devquest.application.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import devquest.application.enums.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "user_question")
 public class UserQuestion {
 

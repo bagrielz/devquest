@@ -1,8 +1,6 @@
 package devquest.application.exceptions.handlers;
 
-import devquest.application.exceptions.ExceptionResponse;
-import devquest.application.exceptions.InvalidJwtAuthenticationException;
-import devquest.application.exceptions.RequiredObjectIsNullException;
+import devquest.application.exceptions.*;
 import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,12 +21,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
   public final ResponseEntity<ExceptionResponse> invalidJwtAuthenticationException(
           Exception ex, WebRequest request) {
 
-    ExceptionResponse exceptionResponse = ExceptionResponse.builder()
-            .timestamp(new Date())
-            .message(ex.getMessage())
-            .details(request.getDescription(false))
-            .build();
-
+    ExceptionResponse exceptionResponse = getExceptionResponse(ex, request);
     return new ResponseEntity<>(exceptionResponse, HttpStatus.FORBIDDEN);
   }
 
@@ -36,13 +29,33 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
   public final ResponseEntity<ExceptionResponse> requiredObjectIsNullException(
           Exception ex, WebRequest request) {
 
+    ExceptionResponse exceptionResponse = getExceptionResponse(ex, request);
+    return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+  }
+
+  @ExceptionHandler(QuestionNotFoundException.class)
+  public final ResponseEntity<ExceptionResponse> questionNotFoundException(
+          Exception ex, WebRequest request) {
+
+    ExceptionResponse exceptionResponse = getExceptionResponse(ex, request);
+    return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+  }
+
+  @ExceptionHandler(QuestionAlreadyAnswered.class)
+  public final ResponseEntity<ExceptionResponse> questionAlreadyAnsweredException(
+          Exception ex, WebRequest request) {
+
+    ExceptionResponse exceptionResponse = getExceptionResponse(ex, request);
+    return new ResponseEntity<>(exceptionResponse, HttpStatus.CONFLICT);
+  }
+
+  private static ExceptionResponse getExceptionResponse(Exception ex, WebRequest request) {
     ExceptionResponse exceptionResponse = ExceptionResponse.builder()
             .timestamp(new Date())
             .message(ex.getMessage())
             .details(request.getDescription(false))
             .build();
-
-    return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    return exceptionResponse;
   }
 
 }

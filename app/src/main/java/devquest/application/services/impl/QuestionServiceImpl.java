@@ -29,7 +29,7 @@ public class QuestionServiceImpl implements QuestionService {
   }
 
   @Override
-  public ResponseEntity<?> answerQuestion(String token, AnswerQuestionRequestDTO answerQuestionRequestDTO) {
+  public ResponseEntity<String> answerQuestion(String token, AnswerQuestionRequestDTO answerQuestionRequestDTO) {
     return answerQuestionService.answerQuestion(token, answerQuestionRequestDTO);
   }
 
