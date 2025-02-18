@@ -2,6 +2,7 @@ package devquest.application.controllers;
 
 import devquest.application.enums.Difficulty;
 import devquest.application.enums.Technology;
+import devquest.application.exceptions.ExceptionResponse;
 import devquest.application.model.dtos.request.AnswerQuestionRequestDTO;
 import devquest.application.model.dtos.response.questions.QuestionResponseDTO;
 import devquest.application.services.impl.QuestionServiceImpl;
@@ -53,6 +54,40 @@ public class QuestionRestController {
     return service.generateQuestion(technology, difficulty);
   }
 
+  @Operation(summary = "Receber a resposta de uma questão", description = "Endpoint que vai ser chamado " +
+          "quando um usuário responder uma questão",
+    tags = {"Resposta de Atividades"},
+    responses = {
+      @ApiResponse(description = "Sucesso", responseCode = "200",
+        content = {
+          @Content(
+            mediaType = MediaType.APPLICATION_JSON_VALUE,
+            schema = @Schema(implementation = String.class)
+          )
+        }
+      ),
+      @ApiResponse(description = "Questão não encontrada", responseCode = "404",
+        content = {
+          @Content(
+            mediaType = MediaType.APPLICATION_JSON_VALUE,
+            schema = @Schema(implementation = ExceptionResponse.class)
+          )
+        }
+      ),
+      @ApiResponse(description = "Questão já respondida por este usuário", responseCode = "409",
+        content = {
+          @Content(
+            mediaType = MediaType.APPLICATION_JSON_VALUE,
+            schema = @Schema(implementation = ExceptionResponse.class)
+          )
+        }
+      ),
+      @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+      @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+      @ApiResponse(description = "Forbiden", responseCode = "403", content = @Content),
+      @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content)
+    }
+  )
   @PostMapping("/responder")
   public ResponseEntity<String> answerQuestion(@RequestHeader("Authorization") String token,
                                           @RequestBody AnswerQuestionRequestDTO answerQuestionRequestDTO) {
