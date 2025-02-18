@@ -5,11 +5,11 @@ import devquest.application.services.UserProfileService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserProfileProfileServiceImpl implements UserProfileService {
+public class UserProfileServiceImpl implements UserProfileService {
 
   private UserProfileRepository repository;
 
-  public UserProfileProfileServiceImpl(UserProfileRepository userProfileRepository) {
+  public UserProfileServiceImpl(UserProfileRepository userProfileRepository) {
     this.repository = userProfileRepository;
   }
 
