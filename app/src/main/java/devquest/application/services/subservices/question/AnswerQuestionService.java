@@ -42,14 +42,11 @@ public class AnswerQuestionService {
 
   public ResponseEntity<String> answerQuestion(String token, AnswerQuestionRequestDTO answerQuestionRequestDTO) {
     var username = tokenJwtDecoder.getTokenSubject(token);
-    var questionID = answerQuestionRequestDTO.getQuestionID();
-    var status = answerQuestionRequestDTO.getStatus();
-
     User user = userRepository.findByUsername(username);
-    Question question = getQuestionById(questionID);
+    Question question = getQuestionById(answerQuestionRequestDTO.getQuestionID());
     checkIfThisQuestionHasAnswered(question, user);
-    createAndSaveUserQuestion(user, question, status);
-    updateUserQuestionStatistics(user, status);
+    createAndSaveUserQuestion(user, question, answerQuestionRequestDTO.getStatus());
+    updateUserQuestionStatistics(user, answerQuestionRequestDTO.getStatus());
 
     return ResponseEntity.ok().body("Questão respondida com sucesso!");
   }
@@ -60,9 +57,8 @@ public class AnswerQuestionService {
   }
 
   private void checkIfThisQuestionHasAnswered(Question question, User user) {
-    Optional<UserQuestion> userQuestionOptional = userQuestionRepository.findByQuestionAndUserId(question, user);
-    if (userQuestionOptional.isPresent()) throw new QuestionAlreadyAnswered(
-            "This question has already answered by this user!");
+    if (userQuestionRepository.findByQuestionAndUserId(question, user).isPresent())
+      throw new QuestionAlreadyAnswered("This question has already answered by this user!");
   }
 
   private void createAndSaveUserQuestion(User user, Question question, Status status) {
