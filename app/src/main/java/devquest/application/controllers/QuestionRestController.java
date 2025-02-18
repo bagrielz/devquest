@@ -2,6 +2,7 @@ package devquest.application.controllers;
 
 import devquest.application.enums.Difficulty;
 import devquest.application.enums.Technology;
+import devquest.application.model.dtos.request.AnswerQuestionRequestDTO;
 import devquest.application.model.dtos.response.questions.QuestionResponseDTO;
 import devquest.application.services.impl.QuestionServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,10 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/questoes")
@@ -53,6 +51,13 @@ public class QuestionRestController {
           ) {
 
     return service.generateQuestion(technology, difficulty);
+  }
+
+  @PostMapping("/responder")
+  public ResponseEntity<String> answerQuestion(@RequestHeader("Authorization") String token,
+                                          @RequestBody AnswerQuestionRequestDTO answerQuestionRequestDTO) {
+
+    return service.answerQuestion(token, answerQuestionRequestDTO);
   }
 
 }
