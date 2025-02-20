@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 
 public interface QuestionService {
 
-  ResponseEntity<QuestionResponseDTO> generateQuestion(Technology technology, Difficulty difficulty);
+  ResponseEntity<QuestionResponseDTO> generateQuestion(String token, Technology technology, Difficulty difficulty);
   ResponseEntity<?> answerQuestion(String token, AnswerQuestionRequestDTO answerQuestionRequestDTO);
 
 }

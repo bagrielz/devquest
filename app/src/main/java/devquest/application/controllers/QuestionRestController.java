@@ -47,11 +47,12 @@ public class QuestionRestController {
   )
   @GetMapping("/gerar")
   public ResponseEntity<QuestionResponseDTO> generateQuestion(
+          @RequestHeader("Authorization") String token,
           @RequestParam(name = "tecnologia") Technology technology,
           @RequestParam(name = "dificuldade") Difficulty difficulty
           ) {
 
-    return service.generateQuestion(technology, difficulty);
+    return service.generateQuestion(token, technology, difficulty);
   }
 
   @Operation(summary = "Receber a resposta de uma questão", description = "Endpoint que vai ser chamado " +
