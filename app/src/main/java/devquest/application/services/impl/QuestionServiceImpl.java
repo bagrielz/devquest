@@ -24,6 +24,7 @@ public class QuestionServiceImpl implements QuestionService {
                              AnswerQuestionService answerQuestionService) {
 
     this.generateQuestionService = generateQuestionService;
+    this.searchUnansweredQuestionService = searchUnansweredQuestionService;
     this.answerQuestionService = answerQuestionService;
   }
 
