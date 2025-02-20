@@ -2,15 +2,15 @@ package devquest.application.model.entities;
 
 import devquest.application.enums.Gender;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -48,4 +48,15 @@ public class UserProfile {
   @JoinColumn(name = "user_id", unique = true)
   private User user;
 
+  @Override
+  public boolean equals(Object o) {
+    if (o == null || getClass() != o.getClass()) return false;
+    UserProfile that = (UserProfile) o;
+    return Objects.equals(id, that.id) && Objects.equals(cpf, that.cpf) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(birthDate, that.birthDate) && gender == that.gender && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt) && Objects.equals(user, that.user);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, cpf, firstName, lastName, birthDate, gender, createdAt, updatedAt, user);
+  }
 }

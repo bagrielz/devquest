@@ -1,12 +1,13 @@
 package devquest.application.model.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+import java.util.Objects;
+
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -28,4 +29,15 @@ public class QuestionsStatistics {
   @JoinColumn(name = "user_id", unique = true)
   private User user;
 
+  @Override
+  public boolean equals(Object o) {
+    if (o == null || getClass() != o.getClass()) return false;
+    QuestionsStatistics that = (QuestionsStatistics) o;
+    return Objects.equals(id, that.id) && Objects.equals(correctQuestions, that.correctQuestions) && Objects.equals(exercisesCompleted, that.exercisesCompleted) && Objects.equals(user, that.user);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, correctQuestions, exercisesCompleted, user);
+  }
 }
