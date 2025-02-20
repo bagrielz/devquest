@@ -3,15 +3,16 @@ package devquest.application.model.entities;
 import devquest.application.enums.Difficulty;
 import devquest.application.enums.Technology;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -49,4 +50,15 @@ public class Question {
   @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
   private Set<UserQuestion> userQuestion;
 
+  @Override
+  public boolean equals(Object o) {
+    if (o == null || getClass() != o.getClass()) return false;
+    Question question = (Question) o;
+    return Objects.equals(id, question.id) && technology == question.technology && difficulty == question.difficulty && Objects.equals(text, question.text) && Objects.equals(correctAnswer, question.correctAnswer) && Objects.equals(justification, question.justification) && Objects.equals(createdAt, question.createdAt);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, technology, difficulty, text, correctAnswer, justification, createdAt);
+  }
 }

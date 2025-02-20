@@ -1,12 +1,14 @@
 package devquest.application.model.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+import java.util.Objects;
+
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -27,4 +29,15 @@ public class QuestionOption {
   @ManyToOne
   private Question question;
 
+  @Override
+  public boolean equals(Object o) {
+    if (o == null || getClass() != o.getClass()) return false;
+    QuestionOption that = (QuestionOption) o;
+    return Objects.equals(id, that.id) && Objects.equals(optionIndicator, that.optionIndicator) && Objects.equals(optionText, that.optionText) && Objects.equals(question, that.question);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, optionIndicator, optionText, question);
+  }
 }

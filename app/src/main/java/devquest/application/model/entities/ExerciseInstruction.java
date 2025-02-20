@@ -1,12 +1,14 @@
 package devquest.application.model.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+import java.util.Objects;
+
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -27,4 +29,15 @@ public class ExerciseInstruction {
   @ManyToOne
   private Exercise exercise;
 
+  @Override
+  public boolean equals(Object o) {
+    if (o == null || getClass() != o.getClass()) return false;
+    ExerciseInstruction that = (ExerciseInstruction) o;
+    return Objects.equals(id, that.id) && Objects.equals(indicator, that.indicator) && Objects.equals(text, that.text) && Objects.equals(exercise, that.exercise);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, indicator, text, exercise);
+  }
 }
