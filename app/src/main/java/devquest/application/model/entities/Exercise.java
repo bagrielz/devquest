@@ -3,15 +3,16 @@ package devquest.application.model.entities;
 import devquest.application.enums.Difficulty;
 import devquest.application.enums.Technology;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import java.util.Objects;
+import java.util.HashSet;
 import java.util.Set;
 
-@Getter
-@Setter
-@ToString
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -37,21 +38,15 @@ public class Exercise {
   @Column(name = "created_at")
   private Date createdAt;
 
-  @OneToMany(mappedBy = "exercise")
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "exercise", cascade = CascadeType.ALL)
   private Set<ExerciseInstruction> instructions;
 
   @ManyToMany(mappedBy = "exercises")
   private Set<User> users;
 
-  @Override
-  public boolean equals(Object o) {
-    if (o == null || getClass() != o.getClass()) return false;
-    Exercise exercise = (Exercise) o;
-    return Objects.equals(id, exercise.id) && technology == exercise.technology && Objects.equals(content, exercise.content) && difficulty == exercise.difficulty && Objects.equals(createdAt, exercise.createdAt);
+  public void addInstruction(ExerciseInstruction exerciseInstruction) {
+    if (instructions == null) instructions = new HashSet<>();
+    instructions.add(exerciseInstruction);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, technology, content, difficulty, createdAt);
-  }
 }

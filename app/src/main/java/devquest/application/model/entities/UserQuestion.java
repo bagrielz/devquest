@@ -2,13 +2,12 @@ package devquest.application.model.entities;
 
 import devquest.application.enums.Status;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.Objects;
-
-@Getter
-@Setter
-@ToString
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -21,11 +20,11 @@ public class UserQuestion {
   @Column
   private Long id;
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "user_id")
   private User user;
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "question_id")
   private Question question;
 
@@ -33,15 +32,4 @@ public class UserQuestion {
   @Enumerated(EnumType.STRING)
   private Status status;
 
-  @Override
-  public boolean equals(Object o) {
-    if (o == null || getClass() != o.getClass()) return false;
-    UserQuestion that = (UserQuestion) o;
-    return Objects.equals(id, that.id) && Objects.equals(user, that.user) && Objects.equals(question, that.question) && status == that.status;
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, user, question, status);
-  }
 }

@@ -16,7 +16,6 @@ import devquest.application.utilities.TokenJwtDecoder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -74,13 +73,13 @@ public class AnswerQuestionService {
   }
 
   private void relateUserQuestionInUserAndQuestion(User user, Question question, UserQuestion userQuestion) {
-    Set<UserQuestion> userUserQuestions = user.getUserQuestion();
-    Set<UserQuestion> questionUserQuestions = question.getUserQuestion();
+    Set<UserQuestion> userUserQuestions = user.getUserQuestions();
+    Set<UserQuestion> questionUserQuestions = question.getUserQuestions();
     userUserQuestions.add(userQuestion);
     questionUserQuestions.add(userQuestion);
 
-    user.setUserQuestion(userUserQuestions);
-    question.setUserQuestion(questionUserQuestions);
+    user.setUserQuestions(userUserQuestions);
+    question.setUserQuestions(questionUserQuestions);
   }
 
   private void updateUserQuestionStatistics(User user, Status status) {

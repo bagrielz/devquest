@@ -1,13 +1,12 @@
 package devquest.application.model.entities;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.Objects;
-
-@Getter
-@Setter
-@ToString
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -25,18 +24,8 @@ public class ExerciseInstruction {
   @Column(name = "text", columnDefinition = "TEXT")
   private String text;
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "exercise_id")
   private Exercise exercise;
 
-  @Override
-  public boolean equals(Object o) {
-    if (o == null || getClass() != o.getClass()) return false;
-    ExerciseInstruction that = (ExerciseInstruction) o;
-    return Objects.equals(id, that.id) && Objects.equals(indicator, that.indicator) && Objects.equals(text, that.text) && Objects.equals(exercise, that.exercise);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, indicator, text, exercise);
-  }
 }
