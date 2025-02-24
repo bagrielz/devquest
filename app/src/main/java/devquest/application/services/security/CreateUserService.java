@@ -10,6 +10,7 @@ import devquest.application.repositories.PermissionRepository;
 import devquest.application.repositories.QuestionStatisticsRepository;
 import devquest.application.repositories.UserProfileRepository;
 import devquest.application.repositories.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
@@ -40,6 +41,7 @@ public class CreateUserService {
     this.userProfileRepository = userProfileRepository;
   }
 
+  @Transactional
   public ResponseEntity<AccountCredentialsDTO> createUser(AccountCredentialsDTO userData) {
     if (invalidUserData(userData)) throw new RequiredObjectIsNullException("Invalid user data!");
 
