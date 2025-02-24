@@ -5,8 +5,10 @@ import devquest.application.model.dtos.security.AccountCredentialsDTO;
 import devquest.application.model.entities.Permission;
 import devquest.application.model.entities.QuestionsStatistics;
 import devquest.application.model.entities.User;
+import devquest.application.model.entities.UserProfile;
 import devquest.application.repositories.PermissionRepository;
 import devquest.application.repositories.QuestionStatisticsRepository;
+import devquest.application.repositories.UserProfileRepository;
 import devquest.application.repositories.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -26,21 +27,25 @@ public class CreateUserService {
   private UserRepository repository;
   private PermissionRepository permissionRepository;
   private QuestionStatisticsRepository questionStatisticsRepository;
+  private UserProfileRepository userProfileRepository;
 
   public CreateUserService(UserRepository repository,
                            PermissionRepository permissionRepository,
-                           QuestionStatisticsRepository questionStatisticsRepository) {
+                           QuestionStatisticsRepository questionStatisticsRepository,
+                           UserProfileRepository userProfileRepository) {
 
     this.repository = repository;
     this.permissionRepository = permissionRepository;
     this.questionStatisticsRepository = questionStatisticsRepository;
+    this.userProfileRepository = userProfileRepository;
   }
 
   public ResponseEntity<AccountCredentialsDTO> createUser(AccountCredentialsDTO userData) {
     if (invalidUserData(userData)) throw new RequiredObjectIsNullException("Invalid user data!");
 
-    User user = createAndSetUserAttributes(userData);
-    updateUserIdInQuestionStatistics(user);
+    User user = createAndSaveUser(userData);
+    relateQuestionsStatisticsWithUser(user);
+    relateUserProfileWithUser(user);
     AccountCredentialsDTO accountCredentialsDTO = createAccountCredentialsDTO(user);
     return new ResponseEntity<>(accountCredentialsDTO, HttpStatus.CREATED);
   }
@@ -50,31 +55,30 @@ public class CreateUserService {
             || userData.getFullname().isBlank() || userData.getPassword().isBlank();
   }
 
-  private User createAndSetUserAttributes(AccountCredentialsDTO userData) {
-    User user = new User();
+  private User createAndSaveUser(AccountCredentialsDTO userData) {
+    User user = User.builder()
+            .userName(userData.getUsername())
+            .password(generateHashedPassword(userData.getPassword()))
+            .fullName(userData.getFullname())
+            .accountNonExpired(true)
+            .accountNonLocked(true)
+            .credentialsNonExpired(true)
+            .enabled(true)
+            .questionsStatistics(createQuestionStatistics())
+            .userProfile(createUserProfile())
+            .build();
 
-    user.setUserName(userData.getUsername());
-    user.setPassword(generateHashedPassword(userData.getPassword()));
-    user.setFullName(userData.getFullname());
-    user.setAccountNonExpired(true);
-    user.setAccountNonLocked(true);
-    user.setCredentialsNonExpired(true);
-    user.setEnabled(true);
-    user.setPermissions(setUserPermissions());
-    user.setQuestionsStatistics(createAndSaveQuestionStatistics());
+    setUserPermissions(user);
 
     return repository.save(user);
   }
 
-  private List<Permission> setUserPermissions() {
-    List<Permission> userPermission = new ArrayList<>();
+  private void setUserPermissions(User user) {
     Permission permission = permissionRepository.findById(3L).get();
-    userPermission.add(permission);
-
-    return userPermission;
+    user.addPermission(permission);
   }
 
-  private QuestionsStatistics createAndSaveQuestionStatistics() {
+  private QuestionsStatistics createQuestionStatistics() {
     QuestionsStatistics questionsStatistics = QuestionsStatistics.builder()
             .correctQuestions(0)
             .exercisesCompleted(0)
@@ -83,10 +87,25 @@ public class CreateUserService {
     return questionStatisticsRepository.save(questionsStatistics);
   }
 
-  private void updateUserIdInQuestionStatistics(User user) {
+  private UserProfile createUserProfile() {
+    UserProfile userProfile = UserProfile.builder()
+            .createdAt(new Date())
+            .updatedAt(new Date())
+            .build();
+
+    return userProfileRepository.save(userProfile);
+  }
+
+  private void relateQuestionsStatisticsWithUser(User user) {
     QuestionsStatistics questionsStatistics = user.getQuestionsStatistics();
     questionsStatistics.setUser(user);
     questionStatisticsRepository.save(questionsStatistics);
+  }
+
+  private void relateUserProfileWithUser(User user) {
+    UserProfile userProfile = user.getUserProfile();
+    userProfile.setUser(user);
+    userProfileRepository.save(userProfile);
   }
 
   private AccountCredentialsDTO createAccountCredentialsDTO(User user) {
