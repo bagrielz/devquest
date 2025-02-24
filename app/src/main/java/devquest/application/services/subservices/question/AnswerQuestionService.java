@@ -16,7 +16,7 @@ import devquest.application.utilities.TokenJwtDecoder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class AnswerQuestionService {
@@ -45,7 +45,8 @@ public class AnswerQuestionService {
     User user = userRepository.findByUsername(username);
     Question question = getQuestionById(answerQuestionRequestDTO.getQuestionID());
     checkIfThisQuestionHasAnswered(question, user);
-    createAndSaveUserQuestion(user, question, answerQuestionRequestDTO.getStatus());
+    UserQuestion userQuestion = createAndSaveUserQuestion(user, question, answerQuestionRequestDTO.getStatus());
+    relateUserQuestionInUserAndQuestion(user, question, userQuestion);
     updateUserQuestionStatistics(user, answerQuestionRequestDTO.getStatus());
 
     return ResponseEntity.ok().body("Questão respondida com sucesso!");
@@ -61,14 +62,24 @@ public class AnswerQuestionService {
       throw new QuestionAlreadyAnswered("This question has already answered by this user!");
   }
 
-  private void createAndSaveUserQuestion(User user, Question question, Status status) {
+  private UserQuestion createAndSaveUserQuestion(User user, Question question, Status status) {
     UserQuestion userQuestion = UserQuestion.builder()
             .user(user)
             .question(question)
             .status(status)
             .build();
 
-    userQuestionRepository.save(userQuestion);
+    return userQuestionRepository.save(userQuestion);
+  }
+
+  private void relateUserQuestionInUserAndQuestion(User user, Question question, UserQuestion userQuestion) {
+    Set<UserQuestion> userUserQuestions = user.getUserQuestions();
+    Set<UserQuestion> questionUserQuestions = question.getUserQuestions();
+    userUserQuestions.add(userQuestion);
+    questionUserQuestions.add(userQuestion);
+
+    user.setUserQuestions(userUserQuestions);
+    question.setUserQuestions(questionUserQuestions);
   }
 
   private void updateUserQuestionStatistics(User user, Status status) {

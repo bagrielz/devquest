@@ -1,17 +1,19 @@
 package devquest.application.model.entities;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
 
-@Getter
-@Setter
-@ToString
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
@@ -42,21 +44,23 @@ public class User implements UserDetails {
   @Column(name = "enabled")
   private boolean enabled;
 
-  @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "user_profile_id", referencedColumnName = "id")
   private UserProfile userProfile;
 
-  @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "question_statistics_id", referencedColumnName = "id")
   private QuestionsStatistics questionsStatistics;
 
-  @ManyToMany
+  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @JoinTable(name = "user_exercise",
-    joinColumns = {@JoinColumn(name = "user_id")},
-    inverseJoinColumns = {@JoinColumn(name = "exercise_id")}
+    joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+    inverseJoinColumns = {@JoinColumn(name = "exercise_id", referencedColumnName = "id")}
   )
   private Set<Exercise> exercises;
 
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-  private Set<UserQuestion> userQuestion;
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+  private Set<UserQuestion> userQuestions;
 
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "user_permission",
@@ -71,6 +75,21 @@ public class User implements UserDetails {
       roles.add(permission.getDescription());
     }
     return roles;
+  }
+
+  public void addExercise(Exercise exercise) {
+    if (exercises == null) exercises = new HashSet<>();
+    exercises.add(exercise);
+  }
+
+  public void addUserQuestion(UserQuestion userQuestion) {
+    if (userQuestions == null) userQuestions = new HashSet<>();
+    userQuestions.add(userQuestion);
+  }
+
+  public void addPermission(Permission permission) {
+    if (permissions == null) permissions = new ArrayList<>();
+    permissions.add(permission);
   }
 
   @Override
@@ -108,15 +127,4 @@ public class User implements UserDetails {
     return this.enabled;
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (o == null || getClass() != o.getClass()) return false;
-    User user = (User) o;
-    return accountNonExpired == user.accountNonExpired && accountNonLocked == user.accountNonLocked && credentialsNonExpired == user.credentialsNonExpired && enabled == user.enabled && Objects.equals(id, user.id) && Objects.equals(userName, user.userName) && Objects.equals(fullName, user.fullName) && Objects.equals(password, user.password) && Objects.equals(userProfile, user.userProfile) && Objects.equals(questionsStatistics, user.questionsStatistics);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, userName, fullName, password, accountNonExpired, accountNonLocked, credentialsNonExpired, enabled, userProfile, questionsStatistics);
-  }
 }

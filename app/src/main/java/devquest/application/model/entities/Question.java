@@ -3,15 +3,16 @@ package devquest.application.model.entities;
 import devquest.application.enums.Difficulty;
 import devquest.application.enums.Technology;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import java.util.Objects;
+import java.util.HashSet;
 import java.util.Set;
 
-@Getter
-@Setter
-@ToString
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -43,21 +44,20 @@ public class Question {
   @Column(name = "created_at")
   private Date createdAt;
 
-  @OneToMany(mappedBy = "question")
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "question", cascade = CascadeType.ALL)
   private Set<QuestionOption> options;
 
-  @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
-  private Set<UserQuestion> userQuestion;
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "question", cascade = CascadeType.ALL)
+  private Set<UserQuestion> userQuestions;
 
-  @Override
-  public boolean equals(Object o) {
-    if (o == null || getClass() != o.getClass()) return false;
-    Question question = (Question) o;
-    return Objects.equals(id, question.id) && technology == question.technology && difficulty == question.difficulty && Objects.equals(text, question.text) && Objects.equals(correctAnswer, question.correctAnswer) && Objects.equals(justification, question.justification) && Objects.equals(createdAt, question.createdAt);
+  public void addOption(QuestionOption questionOption) {
+    if (options == null) options = new HashSet<>();
+    options.add(questionOption);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, technology, difficulty, text, correctAnswer, justification, createdAt);
+  public void addUserQuestion(UserQuestion userQuestion) {
+    if (userQuestions == null) userQuestions = new HashSet<>();
+    userQuestions.add(userQuestion);
   }
+
 }
