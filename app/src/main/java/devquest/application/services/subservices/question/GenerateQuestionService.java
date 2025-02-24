@@ -11,12 +11,12 @@ import devquest.application.repositories.QuestionOptionRepository;
 import devquest.application.repositories.QuestionRepository;
 import devquest.application.utilities.PromptFormatter;
 import devquest.application.utilities.StringParser;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 @Service
@@ -41,12 +41,12 @@ public class GenerateQuestionService {
     this.questionOptionRepository = questionOptionRepository;
   }
 
+  @Transactional
   public ResponseEntity<QuestionResponseDTO> generateQuestion(Technology technology, Difficulty difficulty) {
     String formatedPrompt = promptFormatter.formatQuestionPrompt(technology, difficulty);
     String questionString = openaiCaller.callOpenai(formatedPrompt);
     Question question = createAndSaveQuestion(questionString, technology, difficulty);
-    Set<QuestionOption> questionOptions = saveOptionsInDatabase(questionString, question);
-    question.setOptions(questionOptions);
+    saveOptionsAndRelateWithQuestion(questionString, question);
     QuestionResponseDTO questionResponseDTO = convertQuestionInQuestionResponseDTO(question);
 
     return new ResponseEntity<>(questionResponseDTO, HttpStatus.OK);
@@ -68,17 +68,14 @@ public class GenerateQuestionService {
     return repository.save(question);
   }
 
-  private Set<QuestionOption> saveOptionsInDatabase(String questionString, Question question) {
+  private void saveOptionsAndRelateWithQuestion(String questionString, Question question) {
     Set<String> optionsString = stringParser.getEnumerationBetweenFlags(
             questionString, "ALTERNATIVAS:", "RESPOSTA CORRETA:");
-    Set<QuestionOption> questionOptions = new HashSet<>();
     optionsString.stream().forEach(o -> {
       String[] parts = stringParser.getArrayWithEnumeratorIndicatorAndText(o, "\\)");
       QuestionOption questionOption = createAndSaveOption(parts, question);
-      questionOptions.add(questionOption);
+      question.addOption(questionOption);
     });
-
-    return questionOptions;
   }
 
   private QuestionOption createAndSaveOption(String[] parts, Question question) {
