@@ -17,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 @Service
@@ -47,8 +46,7 @@ public class GenerateExerciseService {
     String formatedPrompt = promptFormatter.formatExercisePrompt(technology, difficulty);
     String exerciseString = openaiCaller.callOpenai(formatedPrompt);
     Exercise exercise = createAndSaveExercise(exerciseString, technology, difficulty);
-    Set<ExerciseInstruction> exerciseInstructions = createAndSaveInstructions(exerciseString, exercise);
-    exercise.setInstructions(exerciseInstructions);
+    createAndSaveInstructions(exerciseString, exercise);
     ExerciseResponseDTO exerciseResponseDTO = convertExerciseInExerciseResponseDTO(exercise);
 
     return new ResponseEntity<>(exerciseResponseDTO, HttpStatus.OK);
@@ -65,17 +63,14 @@ public class GenerateExerciseService {
     return repository.save(exercise);
   }
 
-  private Set<ExerciseInstruction> createAndSaveInstructions(String exerciseString, Exercise exercise) {
+  private void createAndSaveInstructions(String exerciseString, Exercise exercise) {
     Set<String> instructionsString = stringParser.getEnumerationBetweenFlags(exerciseString,
             "INSTRUÇÕES:", null);
-    Set<ExerciseInstruction> instructions = new HashSet<>();
     instructionsString.forEach(i -> {
       String[] parts = stringParser.getArrayWithEnumeratorIndicatorAndText(i, "\\.");
       ExerciseInstruction exerciseInstruction = createAndSaveExerciseInstruction(parts, exercise);
-      instructions.add(exerciseInstruction);
+      exercise.addInstruction(exerciseInstruction);
     });
-
-    return instructions;
   }
 
   private ExerciseInstruction createAndSaveExerciseInstruction(String[] parts, Exercise exercise) {
