@@ -13,6 +13,7 @@ import devquest.application.repositories.QuestionStatisticsRepository;
 import devquest.application.repositories.UserQuestionRepository;
 import devquest.application.repositories.UserRepository;
 import devquest.application.utilities.TokenJwtDecoder;
+import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +41,7 @@ public class AnswerQuestionService {
     this.tokenJwtDecoder = tokenJwtDecoder;
   }
 
+  @Transactional
   public ResponseEntity<String> answerQuestion(String token, AnswerQuestionRequestDTO answerQuestionRequestDTO) {
     var username = tokenJwtDecoder.getTokenSubject(token);
     User user = userRepository.findByUsername(username);

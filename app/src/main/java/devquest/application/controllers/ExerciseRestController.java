@@ -3,7 +3,7 @@ package devquest.application.controllers;
 import devquest.application.enums.Difficulty;
 import devquest.application.enums.Technology;
 import devquest.application.model.dtos.response.exercises.ExerciseResponseDTO;
-import devquest.application.services.impl.ExerciseServiceImpl;
+import devquest.application.services.ExerciseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Exercise Controller", description = "Controller com endpoints de gerenciamento de exercícios")
 public class ExerciseRestController {
 
-  private ExerciseServiceImpl service;
+  private ExerciseService service;
 
-  public ExerciseRestController(ExerciseServiceImpl exerciseService) {
+  public ExerciseRestController(ExerciseService exerciseService) {
     this.service = exerciseService;
   }
 
