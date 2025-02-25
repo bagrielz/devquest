@@ -11,6 +11,7 @@ import devquest.application.repositories.ExerciseRepository;
 import devquest.application.utilities.OpenaiCaller;
 import devquest.application.utilities.PromptFormatter;
 import devquest.application.utilities.StringParser;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,7 @@ public class GenerateExerciseService {
     this.exerciseInstructionRepository = exerciseInstructionRepository;
   }
 
+  @Transactional
   public ResponseEntity<ExerciseResponseDTO> generateExercise(Technology technology, Difficulty difficulty) {
     String formatedPrompt = promptFormatter.formatExercisePrompt(technology, difficulty);
     String exerciseString = openaiCaller.callOpenai(formatedPrompt);
