@@ -8,5 +8,6 @@ import org.springframework.http.ResponseEntity;
 public interface ExerciseService {
 
   ResponseEntity<ExerciseResponseDTO> generateExercise(String token, Technology technology, Difficulty difficulty);
+  ResponseEntity<String> answerExercise(String token, Long exerciseId);
 
 }
