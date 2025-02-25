@@ -1,7 +1,7 @@
 package devquest.application.controllers;
 
 import devquest.application.model.dtos.response.user.UserInfoDTO;
-import devquest.application.services.impl.UserServiceImpl;
+import devquest.application.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "User Controller", description = "Controller com endpoints de gerenciamento de usuários")
 public class UserRestController {
 
-  private UserServiceImpl service;
+  private UserService service;
 
-  public UserRestController(UserServiceImpl userService) {
+  public UserRestController(UserService userService) {
     this.service = userService;
   }
 
