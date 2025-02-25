@@ -48,6 +48,11 @@ public class Exercise {
     instructions.add(exerciseInstruction);
   }
 
+  public void addUser(User user) {
+    if (users == null) users = new HashSet<>();
+    users.add(user);
+  }
+
   @Override
   public boolean equals(Object o) {
     if (o == null || getClass() != o.getClass()) return false;
