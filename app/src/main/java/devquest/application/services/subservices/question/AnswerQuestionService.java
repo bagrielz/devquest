@@ -1,8 +1,8 @@
 package devquest.application.services.subservices.question;
 
 import devquest.application.enums.Status;
-import devquest.application.exceptions.QuestionAlreadyAnswered;
-import devquest.application.exceptions.QuestionNotFoundException;
+import devquest.application.exceptions.QuestionAlreadyAnsweredException;
+import devquest.application.exceptions.ResourceNotFoundException;
 import devquest.application.model.dtos.request.AnswerQuestionRequestDTO;
 import devquest.application.model.entities.Question;
 import devquest.application.model.entities.QuestionsStatistics;
@@ -56,12 +56,12 @@ public class AnswerQuestionService {
 
   private Question getQuestionById(Long id) {
     return questionRepository.findById(id)
-            .orElseThrow(() -> new QuestionNotFoundException("Question not found!"));
+            .orElseThrow(() -> new ResourceNotFoundException("Question not found!"));
   }
 
   private void checkIfThisQuestionHasAnswered(Question question, User user) {
     if (userQuestionRepository.findByQuestionAndUserId(question, user).isPresent())
-      throw new QuestionAlreadyAnswered("This question has already answered by this user!");
+      throw new QuestionAlreadyAnsweredException("This question has already answered by this user!");
   }
 
   private UserQuestion createAndSaveUserQuestion(User user, Question question, Status status) {
