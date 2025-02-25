@@ -11,10 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/exercicios")
@@ -48,10 +45,12 @@ public class ExerciseRestController {
   )
   @GetMapping("/gerar")
   public ResponseEntity<ExerciseResponseDTO> generateExercise(
+          @RequestHeader("Authorization") String token,
           @RequestParam(name = "tecnologia") Technology technology,
           @RequestParam(name = "dificuldade") Difficulty difficulty
           ) {
-    return service.generateExercise(technology, difficulty);
+
+    return service.generateExercise(token, technology, difficulty);
   }
 
 }
