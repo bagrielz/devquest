@@ -33,16 +33,24 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
     return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
   }
 
-  @ExceptionHandler(QuestionNotFoundException.class)
-  public final ResponseEntity<ExceptionResponse> questionNotFoundException(
+  @ExceptionHandler(ResourceNotFoundException.class)
+  public final ResponseEntity<ExceptionResponse> resourceNotFoundException(
           Exception ex, WebRequest request) {
 
     ExceptionResponse exceptionResponse = getExceptionResponse(ex, request);
     return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
   }
 
-  @ExceptionHandler(QuestionAlreadyAnswered.class)
+  @ExceptionHandler(QuestionAlreadyAnsweredException.class)
   public final ResponseEntity<ExceptionResponse> questionAlreadyAnsweredException(
+          Exception ex, WebRequest request) {
+
+    ExceptionResponse exceptionResponse = getExceptionResponse(ex, request);
+    return new ResponseEntity<>(exceptionResponse, HttpStatus.CONFLICT);
+  }
+
+  @ExceptionHandler(ExerciseAlreadyAnsweredException.class)
+  public final ResponseEntity<ExceptionResponse> exerciseAlreadyAnsweredException(
           Exception ex, WebRequest request) {
 
     ExceptionResponse exceptionResponse = getExceptionResponse(ex, request);

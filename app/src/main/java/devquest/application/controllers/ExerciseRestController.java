@@ -53,4 +53,11 @@ public class ExerciseRestController {
     return service.generateExercise(token, technology, difficulty);
   }
 
+  @GetMapping("/responder/{exerciseId}")
+  public ResponseEntity<String> answerExercise(@RequestHeader("Authorization") String token,
+                                               @PathVariable(name = "exerciseId") Long exerciseId) {
+
+    return service.answerExercise(token, exerciseId);
+  }
+
 }

@@ -4,6 +4,7 @@ import devquest.application.enums.Difficulty;
 import devquest.application.enums.Technology;
 import devquest.application.model.dtos.response.exercises.ExerciseResponseDTO;
 import devquest.application.services.ExerciseService;
+import devquest.application.services.subservices.exercise.AnswerExerciseService;
 import devquest.application.services.subservices.exercise.GenerateExerciseService;
 import devquest.application.services.subservices.exercise.SearchUnansweredExerciseService;
 import org.springframework.http.HttpStatus;
@@ -15,12 +16,15 @@ public class ExerciseServiceImpl implements ExerciseService {
 
   private GenerateExerciseService generateExerciseService;
   private SearchUnansweredExerciseService searchUnansweredExerciseService;
+  private AnswerExerciseService answerExerciseService;
 
   public ExerciseServiceImpl(GenerateExerciseService generateExerciseService,
-                             SearchUnansweredExerciseService searchUnansweredExerciseService) {
+                             SearchUnansweredExerciseService searchUnansweredExerciseService,
+                             AnswerExerciseService answerExerciseService) {
 
     this.generateExerciseService = generateExerciseService;
     this.searchUnansweredExerciseService = searchUnansweredExerciseService;
+    this.answerExerciseService = answerExerciseService;
   }
 
   @Override
@@ -35,6 +39,11 @@ public class ExerciseServiceImpl implements ExerciseService {
       return new ResponseEntity<>(unansweredExercise, HttpStatus.OK);
 
     return generateExerciseService.generateExercise(technology, difficulty);
+  }
+
+  @Override
+  public ResponseEntity<String> answerExercise(String token, Long exerciseId) {
+    return answerExerciseService.answerExercise(token, exerciseId);
   }
 
 }
