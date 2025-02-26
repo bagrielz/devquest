@@ -38,18 +38,18 @@ public class AuthService {
       if (user != null) {
         tokenResponse = tokenProvider.createAccessToken(username, user.getRoles());
       } else {
-        throw new UsernameNotFoundException("Username" + username + " not found!");
+        throw new UsernameNotFoundException("Usuário " + username + " não encontrado");
       }
 
       return ResponseEntity.ok(tokenResponse);
     } catch (Exception e) {
-      throw new BadCredentialsException("Invalid username/password supplied!");
+      throw new BadCredentialsException("Usuário ou senha incorretos");
     }
   }
 
   public ResponseEntity<TokenDTO> refreshToken(String username, String refreshToken) {
     var user = repository.findByUsername(username);
-    if (user == null) throw new UsernameNotFoundException("Username" + username + " not found!");
+    if (user == null) throw new UsernameNotFoundException("Usuário " + username + " não encontrado");
 
     TokenDTO tokenDTO;
     tokenDTO = tokenProvider.refreshToken(refreshToken);

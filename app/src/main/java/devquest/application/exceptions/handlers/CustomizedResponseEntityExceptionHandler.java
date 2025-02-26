@@ -4,6 +4,8 @@ import devquest.application.exceptions.*;
 import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
@@ -55,6 +57,22 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 
     ExceptionResponse exceptionResponse = getExceptionResponse(ex, request);
     return new ResponseEntity<>(exceptionResponse, HttpStatus.CONFLICT);
+  }
+
+  @ExceptionHandler(BadCredentialsException.class)
+  public final ResponseEntity<ExceptionResponse> badCredentialsException(
+          Exception ex, WebRequest request) {
+
+    ExceptionResponse exceptionResponse = getExceptionResponse(ex, request);
+    return new ResponseEntity<>(exceptionResponse, HttpStatus.FORBIDDEN);
+  }
+
+  @ExceptionHandler(UsernameNotFoundException.class)
+  public final ResponseEntity<ExceptionResponse> usernameNotFoundException(
+          Exception ex, WebRequest request) {
+
+    ExceptionResponse exceptionResponse = getExceptionResponse(ex, request);
+    return new ResponseEntity<>(exceptionResponse, HttpStatus.FORBIDDEN);
   }
 
   private static ExceptionResponse getExceptionResponse(Exception ex, WebRequest request) {
