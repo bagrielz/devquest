@@ -5,7 +5,7 @@ import devquest.application.enums.Technology;
 import devquest.application.exceptions.responses.ExceptionResponse;
 import devquest.application.models.dtos.request.AnswerQuestionRequestDTO;
 import devquest.application.models.dtos.response.questions.QuestionResponseDTO;
-import devquest.application.services.QuestionService;
+import devquest.application.services.IQuestionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Question Controller", description = "Controller com endpoints de gerenciamento de questões")
 public class QuestionRestController {
 
-  private QuestionService service;
+  private IQuestionService service;
 
-  public QuestionRestController(QuestionService questionService) {
-    this.service = questionService;
+  public QuestionRestController(IQuestionService service) {
+    this.service = service;
   }
 
   @Operation(summary = "Gerar nova questão",
