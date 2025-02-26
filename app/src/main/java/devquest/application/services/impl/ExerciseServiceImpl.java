@@ -2,7 +2,7 @@ package devquest.application.services.impl;
 
 import devquest.application.enums.Difficulty;
 import devquest.application.enums.Technology;
-import devquest.application.model.dtos.response.exercises.ExerciseResponseDTO;
+import devquest.application.models.dtos.response.exercises.ExerciseResponseDTO;
 import devquest.application.services.ExerciseService;
 import devquest.application.services.subservices.exercise.AnswerExerciseService;
 import devquest.application.services.subservices.exercise.GenerateExerciseService;

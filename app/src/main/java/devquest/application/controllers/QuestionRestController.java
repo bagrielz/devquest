@@ -2,9 +2,9 @@ package devquest.application.controllers;
 
 import devquest.application.enums.Difficulty;
 import devquest.application.enums.Technology;
-import devquest.application.exceptions.ExceptionResponse;
-import devquest.application.model.dtos.request.AnswerQuestionRequestDTO;
-import devquest.application.model.dtos.response.questions.QuestionResponseDTO;
+import devquest.application.exceptions.responses.ExceptionResponse;
+import devquest.application.models.dtos.request.AnswerQuestionRequestDTO;
+import devquest.application.models.dtos.response.questions.QuestionResponseDTO;
 import devquest.application.services.QuestionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

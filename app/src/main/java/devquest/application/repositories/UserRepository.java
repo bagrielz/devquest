@@ -1,6 +1,6 @@
 package devquest.application.repositories;
 
-import devquest.application.model.entities.User;
+import devquest.application.models.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

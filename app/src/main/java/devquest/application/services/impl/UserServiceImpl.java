@@ -1,6 +1,6 @@
 package devquest.application.services.impl;
 
-import devquest.application.model.dtos.response.user.UserInfoDTO;
+import devquest.application.models.dtos.response.user.UserInfoDTO;
 import devquest.application.repositories.UserRepository;
 import devquest.application.services.UserService;
 import devquest.application.services.subservices.user.UserInfoService;

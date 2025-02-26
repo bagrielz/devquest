@@ -1,6 +1,6 @@
 package devquest.application.controllers;
 
-import devquest.application.model.dtos.response.user.UserInfoDTO;
+import devquest.application.models.dtos.response.user.UserInfoDTO;
 import devquest.application.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

@@ -1,6 +1,6 @@
 package devquest.application.utilities;
 
-import devquest.application.config.TestData;
+import devquest.application.configs.TestData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

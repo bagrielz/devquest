@@ -2,9 +2,8 @@ package devquest.application.services.subservices.exercise;
 
 import devquest.application.exceptions.ExerciseAlreadyAnsweredException;
 import devquest.application.exceptions.ResourceNotFoundException;
-import devquest.application.model.entities.Exercise;
-import devquest.application.model.entities.QuestionsStatistics;
-import devquest.application.model.entities.User;
+import devquest.application.models.entities.Exercise;
+import devquest.application.models.entities.User;
 import devquest.application.repositories.ExerciseRepository;
 import devquest.application.repositories.UserRepository;
 import devquest.application.utilities.TokenJwtDecoder;
