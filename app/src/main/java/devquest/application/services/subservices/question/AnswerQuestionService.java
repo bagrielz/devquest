@@ -43,8 +43,7 @@ public class AnswerQuestionService {
 
   @Transactional
   public ResponseEntity<String> answerQuestion(String token, AnswerQuestionRequestDTO answerQuestionRequestDTO) {
-    var username = tokenJwtDecoder.getTokenSubject(token);
-    User user = userRepository.findByUsername(username);
+    User user = getUserByToken(token);
     Question question = getQuestionById(answerQuestionRequestDTO.getQuestionID());
     checkIfThisQuestionHasAnswered(question, user);
     UserQuestion userQuestion = createAndSaveUserQuestion(user, question, answerQuestionRequestDTO.getStatus());
@@ -52,6 +51,11 @@ public class AnswerQuestionService {
     updateUserQuestionStatistics(user, answerQuestionRequestDTO.getStatus());
 
     return ResponseEntity.ok().body("Questão respondida com sucesso!");
+  }
+
+  private User getUserByToken(String token) {
+    String username = tokenJwtDecoder.getTokenSubject(token);
+    return userRepository.findByUsername(username);
   }
 
   private Question getQuestionById(Long id) {
