@@ -1,6 +1,6 @@
 package devquest.application.utilities;
 
-import devquest.application.config.TestData;
+import devquest.application.configs.TestData;
 import devquest.application.enums.Difficulty;
 import devquest.application.enums.Technology;
 import org.junit.jupiter.api.BeforeEach;

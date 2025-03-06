@@ -1,8 +1,8 @@
 package devquest.application.controllers.security;
 
-import devquest.application.exceptions.ExceptionResponse;
-import devquest.application.model.dtos.security.AccountCredentialsDTO;
-import devquest.application.model.dtos.security.TokenDTO;
+import devquest.application.exceptions.responses.ExceptionResponse;
+import devquest.application.models.dtos.security.AccountCredentialsDTO;
+import devquest.application.models.dtos.security.TokenDTO;
 import devquest.application.services.security.AuthService;
 import devquest.application.services.security.CreateUserService;
 import io.swagger.v3.oas.annotations.Operation;

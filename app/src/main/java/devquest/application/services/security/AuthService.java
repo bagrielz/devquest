@@ -1,7 +1,7 @@
 package devquest.application.services.security;
 
-import devquest.application.model.dtos.security.AccountCredentialsDTO;
-import devquest.application.model.dtos.security.TokenDTO;
+import devquest.application.models.dtos.security.AccountCredentialsDTO;
+import devquest.application.models.dtos.security.TokenDTO;
 import devquest.application.repositories.UserRepository;
 import devquest.application.security.jwt.JwtTokenProvider;
 import org.springframework.http.ResponseEntity;

@@ -1,8 +1,8 @@
 package devquest.application.services.subservices.user;
 
-import devquest.application.model.dtos.response.user.UserInfoDTO;
-import devquest.application.model.entities.QuestionsStatistics;
-import devquest.application.model.entities.User;
+import devquest.application.models.dtos.response.user.UserInfoDTO;
+import devquest.application.models.entities.QuestionsStatistics;
+import devquest.application.models.entities.User;
 import devquest.application.repositories.UserRepository;
 import devquest.application.utilities.TokenJwtDecoder;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,7 @@
 package devquest.application.exceptions.handlers;
 
 import devquest.application.exceptions.*;
+import devquest.application.exceptions.responses.ExceptionResponse;
 import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

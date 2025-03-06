@@ -1,8 +1,8 @@
 package devquest.application.services.impl;
 
-import devquest.application.model.dtos.response.user.UserInfoDTO;
+import devquest.application.models.dtos.response.user.UserInfoDTO;
 import devquest.application.repositories.UserRepository;
-import devquest.application.services.UserService;
+import devquest.application.services.IUserService;
 import devquest.application.services.subservices.user.UserInfoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements IUserService, UserDetailsService {
 
   private UserRepository repository;
   private UserInfoService userInfoService;

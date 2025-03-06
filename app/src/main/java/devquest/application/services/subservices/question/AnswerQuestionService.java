@@ -3,11 +3,11 @@ package devquest.application.services.subservices.question;
 import devquest.application.enums.Status;
 import devquest.application.exceptions.QuestionAlreadyAnsweredException;
 import devquest.application.exceptions.ResourceNotFoundException;
-import devquest.application.model.dtos.request.AnswerQuestionRequestDTO;
-import devquest.application.model.entities.Question;
-import devquest.application.model.entities.QuestionsStatistics;
-import devquest.application.model.entities.User;
-import devquest.application.model.entities.UserQuestion;
+import devquest.application.models.dtos.request.AnswerQuestionRequestDTO;
+import devquest.application.models.entities.Question;
+import devquest.application.models.entities.QuestionsStatistics;
+import devquest.application.models.entities.User;
+import devquest.application.models.entities.UserQuestion;
 import devquest.application.repositories.QuestionRepository;
 import devquest.application.repositories.QuestionStatisticsRepository;
 import devquest.application.repositories.UserQuestionRepository;
@@ -43,8 +43,7 @@ public class AnswerQuestionService {
 
   @Transactional
   public ResponseEntity<String> answerQuestion(String token, AnswerQuestionRequestDTO answerQuestionRequestDTO) {
-    var username = tokenJwtDecoder.getTokenSubject(token);
-    User user = userRepository.findByUsername(username);
+    User user = getUserByToken(token);
     Question question = getQuestionById(answerQuestionRequestDTO.getQuestionID());
     checkIfThisQuestionHasAnswered(question, user);
     UserQuestion userQuestion = createAndSaveUserQuestion(user, question, answerQuestionRequestDTO.getStatus());
@@ -52,6 +51,11 @@ public class AnswerQuestionService {
     updateUserQuestionStatistics(user, answerQuestionRequestDTO.getStatus());
 
     return ResponseEntity.ok().body("Questão respondida com sucesso!");
+  }
+
+  private User getUserByToken(String token) {
+    String username = tokenJwtDecoder.getTokenSubject(token);
+    return userRepository.findByUsername(username);
   }
 
   private Question getQuestionById(Long id) {

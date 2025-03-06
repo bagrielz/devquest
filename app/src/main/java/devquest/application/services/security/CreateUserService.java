@@ -1,11 +1,11 @@
 package devquest.application.services.security;
 
 import devquest.application.exceptions.RequiredObjectIsNullException;
-import devquest.application.model.dtos.security.AccountCredentialsDTO;
-import devquest.application.model.entities.Permission;
-import devquest.application.model.entities.QuestionsStatistics;
-import devquest.application.model.entities.User;
-import devquest.application.model.entities.UserProfile;
+import devquest.application.models.dtos.security.AccountCredentialsDTO;
+import devquest.application.models.entities.Permission;
+import devquest.application.models.entities.QuestionsStatistics;
+import devquest.application.models.entities.User;
+import devquest.application.models.entities.UserProfile;
 import devquest.application.repositories.PermissionRepository;
 import devquest.application.repositories.QuestionStatisticsRepository;
 import devquest.application.repositories.UserProfileRepository;

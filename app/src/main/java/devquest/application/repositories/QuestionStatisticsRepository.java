@@ -1,6 +1,6 @@
 package devquest.application.repositories;
 
-import devquest.application.model.entities.QuestionsStatistics;
+import devquest.application.models.entities.QuestionsStatistics;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

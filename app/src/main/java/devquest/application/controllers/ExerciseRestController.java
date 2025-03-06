@@ -2,8 +2,8 @@ package devquest.application.controllers;
 
 import devquest.application.enums.Difficulty;
 import devquest.application.enums.Technology;
-import devquest.application.model.dtos.response.exercises.ExerciseResponseDTO;
-import devquest.application.services.ExerciseService;
+import devquest.application.models.dtos.response.exercises.ExerciseResponseDTO;
+import devquest.application.services.IExerciseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Exercise Controller", description = "Controller com endpoints de gerenciamento de exercícios")
 public class ExerciseRestController {
 
-  private ExerciseService service;
+  private IExerciseService service;
 
-  public ExerciseRestController(ExerciseService exerciseService) {
-    this.service = exerciseService;
+  public ExerciseRestController(IExerciseService service) {
+    this.service = service;
   }
 
   @Operation(summary = "Gerar novo exercício",

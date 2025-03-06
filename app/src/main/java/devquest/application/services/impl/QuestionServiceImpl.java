@@ -2,9 +2,9 @@ package devquest.application.services.impl;
 
 import devquest.application.enums.Difficulty;
 import devquest.application.enums.Technology;
-import devquest.application.model.dtos.request.AnswerQuestionRequestDTO;
-import devquest.application.model.dtos.response.questions.QuestionResponseDTO;
-import devquest.application.services.QuestionService;
+import devquest.application.models.dtos.request.AnswerQuestionRequestDTO;
+import devquest.application.models.dtos.response.questions.QuestionResponseDTO;
+import devquest.application.services.IQuestionService;
 import devquest.application.services.subservices.question.AnswerQuestionService;
 import devquest.application.services.subservices.question.GenerateQuestionService;
 import devquest.application.services.subservices.question.SearchUnansweredQuestionService;
@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class QuestionServiceImpl implements QuestionService {
+public class QuestionServiceImpl implements IQuestionService {
 
   private GenerateQuestionService generateQuestionService;
   private SearchUnansweredQuestionService searchUnansweredQuestionService;

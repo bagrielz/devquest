@@ -1,6 +1,6 @@
 package devquest.application.repositories;
 
-import devquest.application.model.entities.Permission;
+import devquest.application.models.entities.Permission;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
